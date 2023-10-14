@@ -1,0 +1,15 @@
+.demo-logo {
+  width: 180px;
+  height: 40px;
+  background-color: aliceblue;
+}
+.sidebar-menu {
+  .ant-menu-item {
+    height: 32px !important;
+    line-height: 32px !important;
+  }
+  .ant-menu-submenu-title {
+    height: 32px !important;
+    line-height: 32px !important;
+  }
+}
