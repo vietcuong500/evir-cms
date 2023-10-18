@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths({})],
   server: {
     host: true,
-    port: 8000,
+    port: 3005,
     watch: {
       usePolling: true,
     },
