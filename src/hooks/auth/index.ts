@@ -21,25 +21,49 @@ export const useLogin = () => {
 };
 
 export const useForgetPassword = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   return useMutation({
     mutationFn: (email: string) => {
       return authService.forgetPassword(email);
+    },
+    onError: () => {
+      enqueueSnackbar({
+        variant: "error",
+        message: "Email không chính xác",
+      });
     },
   });
 };
 
 export const useResetPassword = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   return useMutation({
     mutationFn: (data: any) => {
       return authService.resetPassword(data);
+    },
+    onError: () => {
+      enqueueSnackbar({
+        variant: "error",
+        message: "Đổi mật khẩu không thành công",
+      });
     },
   });
 };
 
 export const useVertifyCode = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   return useMutation({
     mutationFn: (data: IVertifyCode) => {
       return authService.vertifyCode(data);
+    },
+    onError: () => {
+      enqueueSnackbar({
+        variant: "error",
+        message: "OTP không chính xác",
+      });
     },
   });
 };

@@ -23,8 +23,8 @@ function LoginLayout() {
   const { isPending: loadingSendMail, mutateAsync: sendMail } =
     useForgetPassword();
 
-  const handleSendMail = async (email?: string) => {
-    const data = await sendMail(email || account.username);
+  const handleSendMail = async (email: string) => {
+    const data = await sendMail(email);
     if (data.code === 200) {
       setCurrentStep("vertify");
     } else {

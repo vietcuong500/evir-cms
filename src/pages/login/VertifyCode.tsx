@@ -77,7 +77,10 @@ export const VerityOTP = (props: any) => {
         <div>
           <p className="text-center">
             I dont receive a code
-            <Button onClick={handleSendMail} type="link">
+            <Button
+              onClick={() => handleSendMail(account.username)}
+              type="link"
+            >
               resend
             </Button>
           </p>
