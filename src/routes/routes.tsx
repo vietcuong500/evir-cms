@@ -19,6 +19,7 @@ import LoginLayout from "pages/login/LoginLayout";
 import { AddPost, ListingPost } from "pages/blog";
 import { ListingCategory } from "pages/category";
 import UpdatePost from "pages/blog/UpdatePost";
+import UpdateProduct from "pages/products/modules/UpdateProduct";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
           <Route path="products">
             <Route path="" Component={ListingProduct} />
             <Route path="add" Component={AddProduct} />
+            <Route path=":id" Component={UpdateProduct} />
           </Route>
           <Route path="collections">
             <Route path="" Component={ListingCollection} />

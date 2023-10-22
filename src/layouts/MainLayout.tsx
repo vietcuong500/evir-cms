@@ -93,20 +93,15 @@ const MainLayout: React.FC = () => {
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Header
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <div className="demo-logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items1}
-        />
-      </Header>
+      <div className="h-16 bg-white shadow-2xl flex justify-between">
+        <div className="tracking-wider w-[200px] capitalize text-xl text-stone-800 font-semibold h-16 flex items-center justify-center ">
+          <div className="cursor-pointer w-9 h-9 rounded-full border-2 border-solid border-blue-600 flex items-center justify-center uppercase font-bold text-blue-600 text-xl ">
+            N
+          </div>
+          <p className="text-blue-600 ml-2">Infit</p>
+        </div>
+        <div></div>
+      </div>
       <Layout
         style={{
           height: "100%",
@@ -123,15 +118,17 @@ const MainLayout: React.FC = () => {
           />
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
+          {/* <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
+
           <Content
             style={{
               margin: 0,
               minHeight: 280,
+              marginTop: 16,
             }}
           >
             <Outlet />

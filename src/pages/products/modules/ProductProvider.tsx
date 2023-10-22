@@ -1,15 +1,24 @@
 import { Button } from "antd";
-import { FormContext } from "antd/es/form/context";
-import { useAuth } from "auth/AuthProvider";
-import { useStorePost } from "hooks/posts";
 import FormPageLayout from "layouts/FormPageLayout";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import PostCategory from "./PostCategory";
-import PostInfo from "./PostInfo";
-import PostMedia from "./PostMedia";
-import PostStatus from "./PostStatus";
-function PostProvider(props: any) {
+import { ProductCreateModel } from "../AddProduct";
+import ProductCollection from "../components/ProductCollection";
+import ProductInfo from "../components/ProductInfo";
+import ProductInventory from "../components/ProductInventory";
+import ProductMedia from "../components/ProductMedia";
+import ProductPrice from "../components/ProductPrice";
+import ProductStatus from "../components/ProductStatus";
+
+interface IProductProviderProps {
+  defaultValues: ProductCreateModel;
+  handleSubmit: any;
+  handleDelete?: any;
+  loadingSubmit: boolean;
+}
+
+function ProductProvider(props: IProductProviderProps) {
   const navigate = useNavigate();
   const { defaultValues, handleSubmit, handleDelete, loadingSubmit } = props;
   const methods = useForm({
@@ -21,14 +30,16 @@ function PostProvider(props: any) {
       <FormPageLayout
         contentLeft={
           <>
-            <PostInfo />
+            <ProductInfo />
+            <ProductInventory />
+            <ProductPrice />
           </>
         }
         contentRight={
           <>
-            <PostStatus />
-            <PostMedia />
-            <PostCategory />
+            <ProductMedia />
+            <ProductStatus />
+            <ProductCollection />
           </>
         }
         footer={
@@ -54,4 +65,4 @@ function PostProvider(props: any) {
   );
 }
 
-export default PostProvider;
+export default ProductProvider;

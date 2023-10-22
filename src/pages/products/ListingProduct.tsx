@@ -9,6 +9,7 @@ import {
   Typography,
 } from "antd";
 import { Filter } from "components";
+import { useListingProduct } from "hooks/product";
 import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -16,6 +17,8 @@ import { Link, useNavigate } from "react-router-dom";
 function ListingProduct() {
   const navigation = useNavigate;
   const [params, setParams] = useState({ page: 1, page_size: 10, keyword: "" });
+
+  const { isLoading, data } = useListingProduct(params);
 
   return (
     <div>
@@ -101,25 +104,8 @@ function ListingProduct() {
         </div>
         <Table
           size="small"
-          pagination={false}
-          dataSource={[
-            {
-              key: 1,
-              id: "#1001",
-              name: "Iphone 15",
-              price: "14.000.000 VND",
-              quantity: 13,
-              status: "active",
-            },
-            {
-              key: 2,
-              id: "#1001",
-              name: "Iphone 13",
-              price: "14.000.000 VND",
-              quantity: 21,
-              status: "active",
-            },
-          ]}
+          loading={isLoading}
+          dataSource={data ? data.data : []}
           columns={[
             {
               key: "img",
@@ -134,6 +120,21 @@ function ListingProduct() {
               key: "name",
               dataIndex: "name",
               title: "Tên sản phẩm",
+              render: (value, record) => (
+                <Link
+                  state={{
+                    item: record,
+                  }}
+                  to={`/products/${record.id}`}
+                >
+                  {value}
+                </Link>
+              ),
+            },
+            {
+              key: "catgory",
+              dataIndex: "catgory",
+              title: "Danh mục",
             },
 
             {
@@ -143,13 +144,13 @@ function ListingProduct() {
               render: (value) => (
                 <Tag bordered={false} color="success">
                   <span className="mr-2 w-2 h-2 rounded-full bg-green-500 inline-block"></span>
-                  {value}
+                  Hoạt động
                 </Tag>
               ),
             },
             {
-              key: "inventory",
-              dataIndex: "inventory",
+              key: "stock",
+              dataIndex: "stock",
               title: "Tồn kho",
             },
             {

@@ -2,10 +2,11 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import cdnConfig from "config/cdnConfig";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 
 function PostInfo() {
   const { control } = useFormContext();
+
   return (
     <div className="box">
       <p className="box-title">Thông tin cơ bản</p>
@@ -47,7 +48,6 @@ function PostInfo() {
             name="content"
             render={({ field: { onChange, value } }) => (
               <Editor
-                initialValue="<p>This is the initial content of the editor.</p>"
                 init={{
                   height: 600,
                   plugins:
@@ -60,7 +60,6 @@ function PostInfo() {
                   file_picker_types: "image",
                   images_upload_handler: async (blobInfo) => {
                     const formData = new FormData();
-                    console.log(blobInfo.blob());
                     formData.append("file", blobInfo.blob());
                     try {
                       const res = await cdnConfig

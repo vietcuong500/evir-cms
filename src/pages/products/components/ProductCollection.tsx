@@ -47,7 +47,9 @@ function ProductCollection() {
             },
           ]}
         />
-        <Button className="mt-3" type="link">Thêm danh mục</Button>
+        <Button className="mt-3" type="link">
+          Thêm danh mục
+        </Button>
       </div>
     </div>
   );

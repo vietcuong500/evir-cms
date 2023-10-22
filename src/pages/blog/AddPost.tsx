@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import { FormContext } from "antd/es/form/context";
 import { useAuth } from "auth/AuthProvider";
 import { useStorePost } from "hooks/posts";
@@ -12,18 +13,18 @@ import PostStatus from "./components/PostStatus";
 function AddPost() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { mutate, isPending } = useStorePost();
-  const handleSubmit = (data: any) => {
-    mutate({
+  const { mutateAsync, isPending } = useStorePost();
+  const handleSubmit = async (data: any) => {
+    const res = await mutateAsync({
       ...data,
       author_id: user?.id,
     });
+    if (res.code === 200 || res.code === 0) {
+      navigate(`/posts/${res.data.id}`);
+    }
   };
   return (
     <PostProvider
-      onSubmit={handleSubmit}
-      onCancel={() => navigate("/posts")}
-      loading={isPending}
       defaultValues={{
         title: "Bài 1",
         content: "content ngắn thôi",
@@ -32,6 +33,8 @@ function AddPost() {
         author_id: null,
         status: "DRAFT",
       }}
+      handleSubmit={handleSubmit}
+      loadingSubmit={isPending}
     />
   );
 }

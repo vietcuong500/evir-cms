@@ -23,3 +23,21 @@ export const useDetailPost = (id: number) => {
     placeholderData: keepPreviousData,
   });
 };
+
+export const useUpdatePost = () => {
+  return useMutation({
+    mutationKey: ["update-post"],
+    mutationFn: (variant: { id: number; data: any }) => {
+      return postsService.updatePost(variant.id, variant.data);
+    },
+  });
+};
+
+export const useDeletePost = () => {
+  return useMutation({
+    mutationKey: ["delete-post"],
+    mutationFn: (id: number) => {
+      return postsService.deletePost(id);
+    },
+  });
+};
