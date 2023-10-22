@@ -15,3 +15,17 @@ export const useCreateProduct = () => {
     mutationFn: (data: any) => productService.createProduct(data),
   });
 };
+
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationKey: ["update-product"],
+    mutationFn: (data: any) => productService.updateProduct(data),
+  });
+};
+
+export const useDeleteProduct = () => {
+  return useMutation({
+    mutationKey: ["delete-product"],
+    mutationFn: (id: number) => productService.deleteProduct(id),
+  });
+};
