@@ -16,6 +16,9 @@ import { DiscountCode, DiscountMaster, ListingDiscount } from "pages/discounts";
 import AuthProvider from "auth/AuthProvider";
 import Authentication from "auth/Authentication";
 import LoginLayout from "pages/login/LoginLayout";
+import { AddPost, ListingPost } from "pages/blog";
+import { ListingCategory } from "pages/category";
+import UpdatePost from "pages/blog/UpdatePost";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -46,6 +49,15 @@ export const router = createBrowserRouter(
           </Route>
           <Route path="inventory">
             <Route path="" Component={ListingInventory} />
+          </Route>
+          <Route path="posts">
+            <Route path="" Component={ListingPost} />
+            <Route path="add" Component={AddPost} />
+            <Route path=":id" Component={UpdatePost} />
+          </Route>
+          <Route path="category">
+            <Route path="" Component={ListingCategory} />
+            <Route path="add" Component={AddPost} />
           </Route>
         </Route>
       </Route>

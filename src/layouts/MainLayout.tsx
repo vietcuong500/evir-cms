@@ -70,8 +70,19 @@ const nav: MenuProps["items"] = [
   },
   {
     key: "news",
+    // label: <Link to="posts">Bài viết</Link>,
     label: "Bài viết",
     icon: <MdFolderSpecial />,
+    children: [
+      {
+        key: "category",
+        label: <Link to="category">Danh mục</Link>,
+      },
+      {
+        key: "posts",
+        label: <Link to="posts">Bài viết</Link>,
+      },
+    ],
   },
 ];
 

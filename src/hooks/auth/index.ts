@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { authService } from "apis";
 import { ILogin, IVertifyCode } from "types/auth";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
+import serviceConfig from "config/service";
 
 export const useLogin = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -65,5 +66,14 @@ export const useVertifyCode = () => {
         message: "OTP không chính xác",
       });
     },
+  });
+};
+
+export const useInfo = () => {
+  return useQuery({
+    queryKey: ["info-user"],
+    queryFn: () => authService.getUser(),
+    placeholderData: keepPreviousData,
+    gcTime: 1000 * 60 * 10,
   });
 };

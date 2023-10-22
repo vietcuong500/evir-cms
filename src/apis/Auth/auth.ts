@@ -26,11 +26,16 @@ const resetPassword = (data: any) => {
     .then((res) => res.data);
 };
 
+const getUser = () => {
+  return serviceConfig.get("/user/me").then((res) => res.data);
+};
+
 const authService = {
   login,
   forgetPassword,
   vertifyCode,
   resetPassword,
+  getUser
 };
 
 export default authService;

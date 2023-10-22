@@ -5,19 +5,19 @@ const serviceConfig = axios.create({
   baseURL: "http://103.57.220.81:8082/api/v1",
 });
 
-serviceConfig.interceptors.response.use(
-  (config) => {
+serviceConfig.interceptors.request.use(
+  (config: any) => {
     config.headers = {
-      "Accept": "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json",
     };
-    const access_token = Cookies.get("accessToken");
+    const access_token = Cookies.get("access_token");
     if (access_token) {
       //kiem tra thoi gian token
       //refesh token neu het han
       config.headers = {
         Authorization: `Bearer ${access_token}`,
-        "Accept": "application/json",
+        Accept: "application/json",
         "Content-Type": "application/json",
       };
     }
