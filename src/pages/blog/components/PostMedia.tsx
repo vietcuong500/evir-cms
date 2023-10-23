@@ -2,7 +2,7 @@ import { Button, Upload } from "antd";
 import cdnConfig from "config/cdnConfig";
 import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-import { FiUpload } from "react-icons/fi";
+import { FiPlus, FiUpload } from "react-icons/fi";
 import { useToggle } from "react-use";
 
 function PostMedia() {
@@ -46,8 +46,18 @@ function PostMedia() {
         />
       </div>
       <div className="px-5 py-3 h-40">
-        <div className="w-full h-full bg-neutral-200 border border-neutral-500 rounded overflow-hidden">
-          <img className="w-full h-full object-cover" src={avatar} alt="" />
+        <div className="w-full h-full border border-neutral-300 rounded overflow-hidden flex-center">
+          {avatar ? (
+            <img className="w-full h-full object-cover" src={avatar} alt="" />
+          ) : (
+            <label
+              htmlFor="file"
+              className="flex cursor-pointer text-sm text-neutral-800 gap-2"
+            >
+              <FiPlus className="text-lg text-neutral-700" />
+              Add media
+            </label>
+          )}
         </div>
       </div>
     </div>

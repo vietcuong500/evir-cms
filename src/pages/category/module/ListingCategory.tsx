@@ -1,10 +1,11 @@
 import { Button, Input, Table } from "antd";
 import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useListingCategory } from "../hook";
 
 function ListingCategory() {
+  const navigate = useNavigate();
   const [params, setParams] = useState({
     keyword: "",
     page: 1,
@@ -12,7 +13,6 @@ function ListingCategory() {
   });
 
   const { isLoading, data } = useListingCategory(params);
-  console.log(data);
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -20,7 +20,9 @@ function ListingCategory() {
           Danh mục bài viết
         </p>
         <div className="flex items-center gap-2">
-          <Button type="primary">Thêm danh mục</Button>
+          <Button onClick={() => navigate("/category/add")} type="primary">
+            Thêm danh mục
+          </Button>
         </div>
       </div>
       <div className="box overflow-hidden">
@@ -44,16 +46,16 @@ function ListingCategory() {
               key: "name",
               dataIndex: "name",
               title: "Tên sản phẩm",
-              // render: (value, record) => (
-              //   <Link
-              //     state={{
-              //       item: record,
-              //     }}
-              //     to={`/products/${record.id}`}
-              //   >
-              //     {value}
-              //   </Link>
-              // ),
+              render: (value, record) => (
+                <Link
+                  state={{
+                    item: record,
+                  }}
+                  to={`/category/${record.id}`}
+                >
+                  {value}
+                </Link>
+              ),
             },
             {
               key: "status",

@@ -20,6 +20,8 @@ import { AddPost, ListingPost } from "pages/blog";
 import { ListingCategory } from "pages/category";
 import UpdatePost from "pages/blog/UpdatePost";
 import UpdateProduct from "pages/products/modules/UpdateProduct";
+import AddCategory from "pages/category/module/AddCategory";
+import UpdateCategory from "pages/category/module/UpdateCategory";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -59,7 +61,8 @@ export const router = createBrowserRouter(
           </Route>
           <Route path="category">
             <Route path="" Component={ListingCategory} />
-            <Route path="add" Component={AddPost} />
+            <Route path="add" Component={AddCategory} />
+            <Route path=":id" Component={UpdateCategory} />
           </Route>
         </Route>
       </Route>

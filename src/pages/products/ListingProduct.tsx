@@ -108,12 +108,14 @@ function ListingProduct() {
           dataSource={data ? data.data : []}
           columns={[
             {
-              key: "img",
-              dataIndex: "img",
+              key: "images",
+              dataIndex: "images",
               title: "",
               width: 30,
-              render: () => (
-                <div className="w-8 h-10 rounded bg-neutral-200"></div>
+              render: (value, record) => (
+                <div className="w-8 h-10 rounded bg-neutral-200">
+                  <img src={value}  />
+                </div>
               ),
             },
             {

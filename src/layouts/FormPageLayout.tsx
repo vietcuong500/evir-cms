@@ -17,16 +17,7 @@ function FormPageLayout(props: any) {
         <div className="col-span-8 flex flex-col gap-8">{contentLeft}</div>
         <div className="col-span-4 flex flex-col gap-8">{contentRight}</div>
       </div>
-      <div className="flex items-center justify-end gap-4 mt-8">
-        {footer}
-        {/* <Button onClick={onCancel}>Hủy</Button>
-        <Button danger type="primary" onClick={onDelete}>
-          Xóa
-        </Button>
-        <Button loading={loading} onClick={onSubmit} type="primary">
-          Hoàn thành
-        </Button> */}
-      </div>
+      <div className="flex items-center justify-end gap-4 mt-8">{footer}</div>
     </div>
   );
 }
