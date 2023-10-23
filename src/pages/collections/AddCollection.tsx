@@ -1,28 +1,30 @@
-import { Button } from "antd";
-import ProductCollection from "pages/products/components/ProductCollection";
-import ProductStatus from "pages/products/components/ProductStatus";
-import React from "react";
-import CollectionInfo from "./components/CollectionInfo";
-import CollectionProduct from "./components/CollectionProduct";
+import { useCreateCollection } from "hooks/collection";
+import { useNavigate } from "react-router-dom";
+import CollectionProvider from "./modules/CollectionProvider";
 
 function AddCollection() {
+  const { mutateAsync, isPending } = useCreateCollection();
+  const navigate = useNavigate();
+  const handleSubmit = async (data: any) => {
+    const res = await mutateAsync({
+      ...data,
+      slug: data.name.replaceAll(" ", "-"),
+    });
+    if (res.code === 0 || res.code === 200) {
+      navigate(`/collections/${res.data.id}`);
+    }
+  };
+
   return (
-    <div className="w-9/12 mx-auto">
-      <div className="grid grid-cols-12  gap-x-8">
-        <div className="col-span-8 flex flex-col gap-8">
-          <CollectionInfo />
-          <CollectionProduct />
-        </div>
-        <div className="col-span-4 flex flex-col gap-8">
-          <ProductStatus />
-          <ProductCollection />
-        </div>
-      </div>
-      <div className="flex items-center justify-end gap-4 mt-8">
-        <Button>Hủy</Button>
-        <Button type="primary">Hoàn thành</Button>
-      </div>
-    </div>
+    <CollectionProvider
+      handleSubmit={handleSubmit}
+      loadingSubmit={isPending}
+      defaultValues={{
+        name: "",
+        slug: "",
+        parent_id: null,
+      }}
+    />
   );
 }
 

@@ -114,7 +114,7 @@ function ListingProduct() {
               width: 30,
               render: (value, record) => (
                 <div className="w-8 h-10 rounded bg-neutral-200">
-                  <img src={value}  />
+                  <img src={value} className="w-full h-full object-cover" />
                 </div>
               ),
             },

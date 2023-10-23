@@ -22,6 +22,7 @@ import UpdatePost from "pages/blog/UpdatePost";
 import UpdateProduct from "pages/products/modules/UpdateProduct";
 import AddCategory from "pages/category/module/AddCategory";
 import UpdateCategory from "pages/category/module/UpdateCategory";
+import UpdateCollection from "pages/collections/modules/UpdateCollection";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ export const router = createBrowserRouter(
           <Route path="collections">
             <Route path="" Component={ListingCollection} />
             <Route path="add" Component={AddCollection} />
+            <Route path=":id" Component={UpdateCollection} />
           </Route>
           <Route path="orders">
             <Route path="" Component={ListingOrder} />

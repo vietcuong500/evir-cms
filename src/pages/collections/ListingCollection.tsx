@@ -1,9 +1,16 @@
 import { Button, Input, Popover, Radio, Table, Tag, Typography } from "antd";
-import React from "react";
+import { useListingCollection } from "hooks/collection";
+import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function ListingCollection() {
+  const [params, setParams] = useState({
+    page: 1,
+    page_size: 10,
+    keyword: "",
+  });
+  const { isLoading, data } = useListingCollection(params);
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -66,28 +73,23 @@ function ListingCollection() {
         </div>
         <Table
           size="small"
-          pagination={false}
-          dataSource={[
-            {
-              key: 1,
-              name: "Đồ gốm sứ",
-              items: 32,
-              status: "active",
-            },
-            // {
-            //   key: 2,
-            //   id: "#1001",
-            //   name: "Iphone 13",
-            //   total: "14.000.000 VND",
-            //   orders: 2,
-            //   status: "active",
-            // },
-          ]}
+          loading={isLoading}
+          dataSource={data ? data.data : []}
           columns={[
             {
               key: "name",
               dataIndex: "name",
               title: "Tên danh mục",
+              render: (value, record) => (
+                <Link
+                  state={{
+                    item: record,
+                  }}
+                  to={`/collections/${record.id}`}
+                >
+                  {value}
+                </Link>
+              ),
             },
             {
               key: "active",
