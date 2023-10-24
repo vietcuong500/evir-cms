@@ -1,16 +1,14 @@
 import { Button } from "antd";
 import React from "react";
 
-function FormPageLayout(props: any) {
-  const {
-    contentLeft,
-    contentRight,
-    footer,
-    onSubmit,
-    onCancel,
-    loading,
-    onDelete,
-  } = props;
+interface IFormPageLayoutProps {
+  contentLeft: any;
+  contentRight: any;
+  footer: any;
+}
+
+function FormPageLayout(props: IFormPageLayoutProps) {
+  const { contentLeft, contentRight, footer } = props;
   return (
     <div className="w-9/12 mx-auto">
       <div className="grid grid-cols-12  gap-x-8">

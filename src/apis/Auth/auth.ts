@@ -35,7 +35,7 @@ const authService = {
   forgetPassword,
   vertifyCode,
   resetPassword,
-  getUser
+  getUser,
 };
 
 export default authService;

@@ -23,6 +23,9 @@ import UpdateProduct from "pages/products/modules/UpdateProduct";
 import AddCategory from "pages/category/module/AddCategory";
 import UpdateCategory from "pages/category/module/UpdateCategory";
 import UpdateCollection from "pages/collections/modules/UpdateCollection";
+import AddDiscountMaster from "pages/discounts/modules/AddDiscountMaster";
+import UpdateDiscountMaster from "pages/discounts/modules/UpdateDiscountMaster";
+import { AddComment, ListingComment, UpdateComment } from "pages/comment";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,7 +54,8 @@ export const router = createBrowserRouter(
           </Route>
           <Route path="discounts">
             <Route path="" Component={ListingDiscount} />
-            <Route path="add" Component={DiscountMaster} />
+            <Route path="add" Component={AddDiscountMaster} />
+            <Route path=":id" Component={UpdateDiscountMaster} />
           </Route>
           <Route path="inventory">
             <Route path="" Component={ListingInventory} />
@@ -65,6 +69,11 @@ export const router = createBrowserRouter(
             <Route path="" Component={ListingCategory} />
             <Route path="add" Component={AddCategory} />
             <Route path=":id" Component={UpdateCategory} />
+          </Route>
+          <Route path="comment">
+            <Route path="" Component={ListingComment} />
+            <Route path="add" Component={AddComment} />
+            <Route path=":id" Component={UpdateComment} />
           </Route>
         </Route>
       </Route>

@@ -1,8 +1,23 @@
 import { Button, Input, Modal, Table } from "antd";
-import React from "react";
+import { useListingProduct } from "hooks/product";
+import React, { useEffect, useState } from "react";
 
 function ProductResource(props: any) {
-  const { open, toggle } = props;
+  const { open, toggle, onChange, defaultValues } = props;
+  const [params, setParams] = useState({
+    page: 1,
+    page_size: 10,
+    keyword: "",
+  });
+  const [rowKeys, setRowKeys] = useState<any>(defaultValues || []);
+  const [rowsSelected, setRowsSelected] = useState<any>([]);
+  const { isLoading, data, isSuccess } = useListingProduct(params);
+
+  useEffect(() => {
+    setRowKeys(defaultValues);
+  }, [defaultValues]);
+
+  console.log(rowKeys);
   return (
     <Modal open={open} onCancel={toggle} onOk={toggle} footer={false}>
       <div className="bg-neutral-100 rounded">
@@ -14,56 +29,32 @@ function ProductResource(props: any) {
           <Button type="primary">Tìm kiếm</Button>
         </div>
         <Table
+          loading={isLoading}
           style={{
-            width: "50vw",
+            width: "60vw",
           }}
           size="small"
           rowSelection={{
-            onChange: () => console.log("run"),
+            selectedRowKeys: rowKeys,
+            onChange: (keys, rows) => {
+              setRowKeys(keys);
+              setRowsSelected(rows);
+            },
           }}
-          dataSource={[
-            {
-              key: "1",
-              availble: 32,
-              on_hand: 21,
-              sku: "No SKU",
-              price: "12.000.000",
-              name: "Iphone X",
-            },
-            {
-              key: "2",
-              availble: 42,
-              on_hand: 10,
-              sku: "No SKU",
-              price: "8.400.000",
-              name: "Iphone 12",
-            },
-            {
-              key: "3",
-              availble: 32,
-              on_hand: 21,
-              sku: "No SKU",
-              price: "12.000.000",
-              name: "Iphone 6s",
-            },
-            {
-              key: "4",
-              availble: 42,
-              on_hand: 10,
-              sku: "No SKU",
-              price: "8.400.000",
-              name: "IPhone 15",
-            },
-          ]}
+          dataSource={
+            isSuccess ? data.data.map((el: any) => ({ ...el, key: el.id })) : []
+          }
           columns={[
             {
               title: "",
-              dataIndex: "image",
-              key: "image",
+              dataIndex: "images",
+              key: "images",
               width: 90,
               render(value, record, index) {
                 return (
-                  <div className="flex-center cursor-pointer w-10 h-12 bg-neutral-200"></div>
+                  <div className="flex-center cursor-pointer w-10 h-12 bg-neutral-200">
+                    <img src={value} alt="" />
+                  </div>
                 );
               },
             },
@@ -83,7 +74,24 @@ function ProductResource(props: any) {
       </div>
       <div className="flex items-center justify-end gap-4 px-5 py-3">
         <Button>Hủy</Button>
-        <Button type="primary">Thêm sản phẩm</Button>
+        <Button
+          onClick={() => {
+            const id_not_in_init = rowKeys.filter(
+              (el: number) => !defaultValues.includes(el)
+            );
+            const product_not_in_init = rowsSelected.filter(
+              (el: any) => !defaultValues.includes(el.id)
+            );
+            onChange({
+              product_ids: id_not_in_init,
+              products: product_not_in_init,
+            });
+            toggle();
+          }}
+          type="primary"
+        >
+          Thêm sản phẩm
+        </Button>
       </div>
     </Modal>
   );

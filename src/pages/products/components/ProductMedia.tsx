@@ -36,7 +36,7 @@ function ProductMedia() {
 
                     const res = await cdnConfig
                       .post("uploadFile", formData)
-                      .then((res) => res.data);
+                      ;
                     if (res) {
                       onChange(res.fileDownloadUri);
                     }

@@ -82,6 +82,10 @@ const nav: MenuProps["items"] = [
         key: "posts",
         label: <Link to="posts">Bài viết</Link>,
       },
+      {
+        key: "comment",
+        label: <Link to="comment">Bình luận</Link>,
+      },
     ],
   },
 ];

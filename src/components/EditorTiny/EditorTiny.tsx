@@ -22,7 +22,7 @@ function EditorTiny(props: any) {
           try {
             const res = await cdnConfig
               .post("uploadFile", formData)
-              .then((res) => res.data);
+              ;
             if (res) {
               return res.fileDownloadUri;
             }

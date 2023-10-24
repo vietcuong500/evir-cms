@@ -29,8 +29,8 @@ serviceConfig.interceptors.request.use(
 );
 
 serviceConfig.interceptors.response.use(
-  async (reponse) => {
-    return reponse;
+  async (response) => {
+    return response;
   },
   async (error) => {
     const originalRequest = error.config;

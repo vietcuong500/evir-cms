@@ -1,12 +1,21 @@
 import { Button, Input, Popover, Radio, Table, Tag } from "antd";
-import React from "react";
+import { TableFilter } from "components";
+import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useToggle } from "react-use";
 import { DiscountType } from "./components";
+import { useListingDiscount } from "./hook";
 
 function ListingDiscount() {
   const [open, setOpen] = useToggle(false);
+  const [params, setParams] = useState({
+    page: 1,
+    page_size: 10,
+    keyword: "",
+  });
+
+  const { isLoading, data, isSuccess } = useListingDiscount(params);
   return (
     <div>
       <DiscountType open={open} toggle={setOpen} />
@@ -22,77 +31,25 @@ function ListingDiscount() {
         </div>
       </div>
       <div className="box overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100">
-          <div className="flex gap-2">
-            <Input
-              prefix={<MdSearch className="text-xl text-neutral-500" />}
-              bordered={false}
-              placeholder="Nhập từ khóa cần tìm kiếm"
-            />
-            <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-            <Popover
-              trigger="click"
-              placement="bottomLeft"
-              content={
-                <div className="px-5 py-3">
-                  <p className="font-semibold text-neutral-800 mb-2">
-                    Sắp xếp theo
-                  </p>
-                  <Radio.Group>
-                    <div className="flex flex-col">
-                      <Radio name="order" value="id">
-                        Mã đơn hàng
-                      </Radio>
-                      <Radio name="order" value="customer">
-                        Khách hàng
-                      </Radio>
-                      <Radio name="order" value="date">
-                        Thời gian
-                      </Radio>
-                      <Radio name="order" value="total">
-                        Đơn gía
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </div>
-              }
-            >
-              <Button
-                icon={<MdOutlineSort className="text-xl text-neutral-500" />}
-              />
-            </Popover>
-          </div>
-        </div>
+        <TableFilter />
 
         <Table
           size="small"
-          pagination={false}
-          dataSource={[
-            {
-              key: 1,
-              title: "Sale up 10%",
-              status: "Đang diễn ra",
-              method: "automatic", //code automatic
-              type: "Giảm giá trực tiếp",
-              used: 0,
-            },
-            // {
-            //   key: 2,
-            //   id: "#1001",
-            //   name: "Iphone 13",
-            //   total: "14.000.000 VND",
-            //   orders: 2,
-            //   status: "active",
-            // },
-          ]}
+          loading={isLoading}
+          dataSource={isSuccess ? data.data : []}
           columns={[
             {
-              key: "title",
-              dataIndex: "title",
+              key: "name",
+              dataIndex: "name",
               title: "Khuyến mãi",
-              render: (value) => (
+              render: (value, record) => (
                 <div>
-                  <p className="font-semibold text-neutral-700">{value}</p>
+                  <Link
+                    to={"/discounts/" + record.id}
+                    className="font-semibold text-neutral-700"
+                  >
+                    {value}
+                  </Link>
                   <p className="text-neutral-700">10% OFF</p>
                 </div>
               ),
