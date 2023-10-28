@@ -1,6 +1,6 @@
 import { Button } from "antd";
 import FormPageLayout from "layouts/FormPageLayout";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { DiscountInfo, DiscountMasterSetting } from "../components";
@@ -12,6 +12,10 @@ function DiscountMasterProvider(props: any) {
     mode: "all",
     defaultValues,
   });
+
+  useEffect(() => {
+    methods.reset(defaultValues);
+  }, [defaultValues]);
   return (
     <FormProvider {...methods}>
       <FormPageLayout

@@ -1,10 +1,10 @@
 import { Button, Input, InputNumber, Radio, Table } from "antd";
 import ProductResource from "components/ProductResource/ProductResource";
-import React from "react";
+import React, { useState } from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useToggle } from "react-use";
-import { useRemoveProductToDiscount } from "../hook";
+import { useListingProductDiscount, useRemoveProductToDiscount } from "../hook";
 
 function DiscountMasterSetting() {
   const { id } = useParams();
@@ -14,21 +14,6 @@ function DiscountMasterSetting() {
   const products = useWatch({
     control,
     name: "products",
-  });
-
-  const product_ids_init = useWatch({
-    control,
-    name: "product_ids_init",
-  });
-
-  const products_remove = useWatch({
-    control,
-    name: "products_remove",
-  });
-
-  const product_ids = useWatch({
-    control,
-    name: "product_ids",
   });
 
   const { isPending, mutateAsync } = useRemoveProductToDiscount();
@@ -68,10 +53,13 @@ function DiscountMasterSetting() {
         </div>
         <div>
           <ProductResource
-            defaultValues={product_ids}
+            defaultValues={products.map((el: any) => el.id)}
             onChange={(value: any) => {
-              setValue("product_ids", [...product_ids, ...value.product_ids]);
-              setValue("products", [...products, ...value.products]);
+              //setValue("product_ids", [...product_ids, ...value.product_ids]);
+              setValue("products", [
+                ...products,
+                ...value.products.map((el: any) => ({ ...el, isNew: true })),
+              ]);
             }}
             open={open}
             toggle={setOpen}
@@ -89,8 +77,8 @@ function DiscountMasterSetting() {
         </div>
       </div>
       <Table
-        pagination={false}
-        dataSource={products.map((el: any) => ({ ...el, key: el.id }))}
+        //loading={isLoading}
+        dataSource={products}
         columns={[
           {
             dataIndex: "images",
@@ -129,13 +117,24 @@ function DiscountMasterSetting() {
             render: (value, record) => (
               <Button
                 onClick={async () => {
-                  setValue("products_remove", [...products_remove, record.id]);
-                  // const isRemove = product_ids_init.find(
-                  //   (el: number) => el == record.value
-                  // );
-                  // if(isRemove) {
-                  //   setValue("products_remove", )
-                  // }
+                  if (record.isNew) {
+                    setValue(
+                      "products",
+                      products.filter((el: any) => el.id !== record.id)
+                    );
+                  } else {
+                    //xoa api
+                    const res = await mutateAsync({
+                      discount_id: Number(id),
+                      product_id: record.id,
+                    });
+                    if (res.code === 0 || res.code === 200) {
+                      setValue(
+                        "products",
+                        products.filter((el: any) => el.id !== record.id)
+                      );
+                    }
+                  }
                 }}
                 type="link"
               >

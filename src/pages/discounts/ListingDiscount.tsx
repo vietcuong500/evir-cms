@@ -36,7 +36,9 @@ function ListingDiscount() {
         <Table
           size="small"
           loading={isLoading}
-          dataSource={isSuccess ? data.data : []}
+          dataSource={
+            isSuccess ? data.data.map((el: any) => ({ ...el, key: el.id })) : []
+          }
           columns={[
             {
               key: "name",

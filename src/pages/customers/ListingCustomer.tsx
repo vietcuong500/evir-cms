@@ -1,11 +1,13 @@
 import { Button, Input, Popover, Radio, Table, Tag } from "antd";
-import { Filter } from "components";
+import { Filter, TableFilter } from "components";
+import { useListingUser } from "pages/user/hook";
 import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 function ListingCustomer() {
   const [params, setParams] = useState({ page: 1, page_size: 10, keyword: "" });
+  const { isLoading, data } = useListingUser(params);
 
   return (
     <div>
@@ -26,47 +28,7 @@ function ListingCustomer() {
         </div>
       </div>
       <div className="box overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100">
-          <div className="flex gap-2">
-            <Input
-              prefix={<MdSearch className="text-xl text-neutral-500" />}
-              bordered={false}
-              placeholder="Nhập từ khóa cần tìm kiếm"
-            />
-            <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-            <Popover
-              trigger="click"
-              placement="bottomLeft"
-              content={
-                <div className="px-5 py-3">
-                  <p className="font-semibold text-neutral-800 mb-2">
-                    Sắp xếp theo
-                  </p>
-                  <Radio.Group>
-                    <div className="flex flex-col">
-                      <Radio name="order" value="id">
-                        Mã đơn hàng
-                      </Radio>
-                      <Radio name="order" value="customer">
-                        Khách hàng
-                      </Radio>
-                      <Radio name="order" value="date">
-                        Thời gian
-                      </Radio>
-                      <Radio name="order" value="total">
-                        Đơn gía
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </div>
-              }
-            >
-              <Button
-                icon={<MdOutlineSort className="text-xl text-neutral-500" />}
-              />
-            </Popover>
-          </div>
-        </div>
+        <TableFilter />
         <div className="px-5 py-3">
           <Filter
             values={params}
@@ -91,48 +53,36 @@ function ListingCustomer() {
         </div>
         <Table
           size="small"
-          pagination={false}
-          dataSource={[
-            {
-              key: 1,
-              id: "#1001",
-              name: "Nguyễn Việt Cường",
-              phone: "097571721",
-              total: "14.000.000 VND",
-              orders: 1,
-              status: "active",
-              address: "KĐT Dương Nội, Hà Đông, Hà Nội",
-            },
-            // {
-            //   key: 2,
-            //   id: "#1001",
-            //   name: "Iphone 13",
-            //   total: "14.000.000 VND",
-            //   orders: 2,
-            //   status: "active",
-            // },
-          ]}
+          loading={isLoading}
+          dataSource={
+            data ? data.data.map((el: any) => ({ ...el, key: el.id })) : []
+          }
           columns={[
             {
               key: "id",
               dataIndex: "id",
               title: "Mã khách hàng",
-              render: (value) => <Link to="detail">{value}</Link>,
+              render: (value) => <Link to="detail">#{value}</Link>,
             },
             {
-              key: "name",
-              dataIndex: "name",
-              title: "Tên khách hàng",
+              key: "username",
+              dataIndex: "username",
+              title: "Tên tài khoản",
             },
             {
-              key: "phone",
-              dataIndex: "phone",
-              title: "Số điện thoại",
+              key: "email",
+              dataIndex: "email",
+              title: "Email",
             },
             {
-              key: "address",
-              dataIndex: "address",
-              title: "Địa chỉ",
+              key: "status",
+              dataIndex: "status",
+              title: "Trạng thái",
+              render: (value) => (
+                <Tag color={value === "ACTIVE" ? "success" : "warning"}>
+                  {value === "ACTIVE" ? "Đang hoạt đông" : "Ban"}
+                </Tag>
+              ),
             },
             {
               key: "orders",

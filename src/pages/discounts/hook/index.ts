@@ -63,3 +63,12 @@ export const useAddMultiProductDiscount = () => {
       discountService.add_multi_product(data.product_ids, data.discount_id),
   });
 };
+
+export const useListingProductDiscount = (discount_id: any, params: any) => {
+  return useQuery({
+    queryKey: ["listing-discount-product", discount_id, params],
+    queryFn: () => discountService.listing_product(discount_id, params),
+    placeholderData: keepPreviousData,
+    enabled: !!discount_id,
+  });
+};

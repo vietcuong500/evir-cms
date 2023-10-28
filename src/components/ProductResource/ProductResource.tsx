@@ -17,7 +17,6 @@ function ProductResource(props: any) {
     setRowKeys(defaultValues);
   }, [defaultValues]);
 
-  console.log(rowKeys);
   return (
     <Modal open={open} onCancel={toggle} onOk={toggle} footer={false}>
       <div className="bg-neutral-100 rounded">

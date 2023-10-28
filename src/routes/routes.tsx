@@ -50,7 +50,7 @@ export const router = createBrowserRouter(
           <Route path="customers">
             <Route path="" Component={ListingCustomer} />
             <Route path="add" Component={AddCustomer} />
-            <Route path="detail" Component={DetailCustomer} />
+            <Route path=":id" Component={DetailCustomer} />
           </Route>
           <Route path="discounts">
             <Route path="" Component={ListingDiscount} />

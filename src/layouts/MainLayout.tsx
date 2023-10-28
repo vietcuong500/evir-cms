@@ -87,7 +87,7 @@ const nav: MenuProps["items"] = [
         label: <Link to="comment">Bình luận</Link>,
       },
     ],
-  },
+  }
 ];
 
 const MainLayout: React.FC = () => {

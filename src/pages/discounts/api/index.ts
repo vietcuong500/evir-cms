@@ -5,6 +5,7 @@ const discountUrl = {
   listing: "/admin/discount-promotion",
   add_product: "/admin/discount-promotion/add-product",
   remove_product: "/admin/discount-promotion/remove-product",
+  listing_product: "/admin/discount-promotion/{{id}}/products",
 };
 
 export const discountService = {
@@ -48,4 +49,10 @@ export const discountService = {
           }))
       )
     ),
+  listing_product: (discount_id: any, params: any) =>
+    serviceConfig
+      .get(discountUrl.listing_product.replace("{{id}}", discount_id), {
+        params,
+      })
+      .then((res) => res.data),
 };

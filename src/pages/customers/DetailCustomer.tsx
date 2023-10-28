@@ -1,8 +1,10 @@
 import { Button } from "antd";
 import React from "react";
+import { useParams } from "react-router-dom";
 import { CustomerInfo, CustomerNote, PurchaseHistory } from "./components";
 
 function DetailCustomer() {
+  const {id} = useParams()
   return (
     <div className="w-9/12 mx-auto">
       <div className="grid grid-cols-12  gap-x-8">
