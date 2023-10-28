@@ -11,6 +11,7 @@ function UpdateComment() {
   const { isPending: loadingUpdate, mutate } = useUpdateComment();
   const { isPending: loadingDelete, mutateAsync: mutateDelete } =
     useDeleteComment();
+  const { isLoading, data } = useDetailComment(Number(id));
   const handleSubmit = (data: any) => {
     const { content, post_id, user_id, parent_id } = data;
     mutate({
@@ -29,19 +30,22 @@ function UpdateComment() {
       navigate("/comment");
     }
   };
-  return (
-    <CommentProvider
-      defaultValues={{
-        content: state.item.content,
-        post_id: state.item.post?.id,
-        user_id: state.item.user?.id,
-        parent_id: state.item.parent?.id,
-      }}
-      loadingSubmit={loadingUpdate}
-      handleSubmit={handleSubmit}
-      handleDelete={handleDelete}
-    />
-  );
+  if (isLoading) return <Spin />;
+  if (data)
+    return (
+      <CommentProvider
+        defaultValues={{
+          content: data.data.content,
+          post_id: data.data.post?.id,
+          user_id: data.data.user?.id,
+          parent_id: data.data.parent?.id,
+        }}
+        loadingSubmit={loadingUpdate}
+        handleSubmit={handleSubmit}
+        handleDelete={handleDelete}
+      />
+    );
+  return <p>error</p>;
 }
 
 export default UpdateComment;

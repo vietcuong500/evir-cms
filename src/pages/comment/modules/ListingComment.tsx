@@ -38,9 +38,9 @@ function ListingComment() {
               title: "Bình luận",
               render: (value, record) => (
                 <Link
-                  state={{
-                    item: record,
-                  }}
+                  // state={{
+                  //   item: record,
+                  // }}
                   to={"/comment/" + record.id}
                 >
                   {value}
