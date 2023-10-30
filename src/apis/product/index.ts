@@ -5,6 +5,7 @@ const url = {
   create: "/product/create",
   update: "/product/update",
   delete: "/product/delete",
+  detail: "/product/detail/{{id}}",
 };
 
 const listingProduct = (params: any) => {
@@ -27,11 +28,18 @@ const deleteProduct = (id: number) => {
   return serviceConfig.delete(`${url.delete}/${id}`).then((res) => res.data);
 };
 
+const detail = (id: number) => {
+  return serviceConfig
+    .get(url.detail.replaceAll("{{id}}", String(id)))
+    .then((res) => res.data);
+};
+
 const productService = {
   listingProduct,
   createProduct,
   updateProduct,
   deleteProduct,
+  detail,
 };
 
 export default productService;

@@ -87,7 +87,17 @@ const nav: MenuProps["items"] = [
         label: <Link to="comment">Bình luận</Link>,
       },
     ],
-  }
+  },
+  {
+    key: "theme",
+    label: "Giao diện",
+    children: [
+      {
+        key: "homepage",
+        label: <Link to="/themes/home">Home page</Link>,
+      },
+    ],
+  },
 ];
 
 const MainLayout: React.FC = () => {

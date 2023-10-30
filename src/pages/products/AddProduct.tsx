@@ -10,6 +10,7 @@ export interface ProductCreateModel {
   how_to_use: string;
   price: number | null;
   stock: number | null;
+  category_id: number | null;
 }
 
 function AddProduct() {
@@ -39,6 +40,7 @@ function AddProduct() {
         how_to_use: "jojoasdf",
         price: 18000,
         stock: 89,
+        category_id: null,
       }}
     />
   );

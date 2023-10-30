@@ -29,3 +29,11 @@ export const useDeleteProduct = () => {
     mutationFn: (id: number) => productService.deleteProduct(id),
   });
 };
+
+export const useDetailProduct = (id: number) => {
+  return useQuery({
+    queryKey: ["detail-product", id],
+    queryFn: () => productService.detail(id),
+    placeholderData: keepPreviousData,
+  });
+};

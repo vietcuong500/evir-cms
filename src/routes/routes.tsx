@@ -12,7 +12,7 @@ import ListingInventory from "pages/inventory/ListingInventory";
 import ListingOrder from "pages/orders/ListingOrder";
 import AddOrder from "pages/orders/AddOrder";
 import { AddCustomer, DetailCustomer, ListingCustomer } from "pages/customers";
-import { DiscountCode, DiscountMaster, ListingDiscount } from "pages/discounts";
+import { ListingDiscount } from "pages/discounts";
 import AuthProvider from "auth/AuthProvider";
 import Authentication from "auth/Authentication";
 import LoginLayout from "pages/login/LoginLayout";
@@ -26,6 +26,7 @@ import UpdateCollection from "pages/collections/modules/UpdateCollection";
 import AddDiscountMaster from "pages/discounts/modules/AddDiscountMaster";
 import UpdateDiscountMaster from "pages/discounts/modules/UpdateDiscountMaster";
 import { AddComment, ListingComment, UpdateComment } from "pages/comment";
+import { HomePage } from "pages/themes/home";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -74,6 +75,9 @@ export const router = createBrowserRouter(
             <Route path="" Component={ListingComment} />
             <Route path="add" Component={AddComment} />
             <Route path=":id" Component={UpdateComment} />
+          </Route>
+          <Route path="themes">
+            <Route path="home" Component={HomePage} />
           </Route>
         </Route>
       </Route>
