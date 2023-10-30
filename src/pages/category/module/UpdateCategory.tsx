@@ -12,7 +12,6 @@ function UpdateCategory() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { isLoading, data } = useDetailCategory(Number(id));
-  console.log(data);
   const { isPending: loadingUpdate, mutate } = useUpdateCategory();
   const { isPending: loadingDelete, mutateAsync: mutateDelete } =
     useDeleteCategory();
