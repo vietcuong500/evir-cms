@@ -37,7 +37,7 @@ function UpdateCategory() {
     <CategoryProvider
       defaultValues={{
         name: data.data.name,
-        parent_id: data.data.parent.id,
+        parent_id: data.data.parent?.id || null,
         id: Number(id),
       }}
       loadingSubmit={loadingUpdate}

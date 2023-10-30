@@ -1,7 +1,6 @@
-import { Button, Select, Tree } from "antd";
+import { Select } from "antd";
 import { useListingCollection } from "hooks/collection";
-import { useListingCategory } from "pages/category/hook";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 function ProductCollection() {

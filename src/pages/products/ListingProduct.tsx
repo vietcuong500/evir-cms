@@ -103,9 +103,21 @@ function ListingProduct() {
           />
         </div>
         <Table
+          pagination={{
+            total: data ? data.total : 0,
+            pageSize: 10,
+            onChange(page) {
+              setParams({
+                ...params,
+                page,
+              });
+            },
+          }}
           size="small"
           loading={isLoading}
-          dataSource={data ? data.data : []}
+          dataSource={
+            data ? data.data.map((el: any) => ({ ...el, key: el.id })) : []
+          }
           columns={[
             {
               key: "images",
@@ -114,7 +126,11 @@ function ListingProduct() {
               width: 30,
               render: (value, record) => (
                 <div className="w-8 h-10 rounded bg-neutral-200">
-                  <img alt={record.name} src={value} className="w-full h-full object-cover" />
+                  <img
+                    alt={record.name}
+                    src={value}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               ),
             },

@@ -12,7 +12,6 @@ function ListingPost() {
   });
 
   const { isLoading, data } = useListingPosts(params);
-  console.log(data);
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -66,8 +65,20 @@ function ListingPost() {
           </div>
         </div>
         <Table
+          pagination={{
+            total: data ? data.total : 0,
+            pageSize: 10,
+            onChange(page) {
+              setParams({
+                ...params,
+                page,
+              });
+            },
+          }}
           size="small"
-          dataSource={data ? data.data : []}
+          dataSource={
+            data ? data.data.map((el: any) => ({ ...el, key: el.id })) : []
+          }
           columns={[
             {
               key: "title",

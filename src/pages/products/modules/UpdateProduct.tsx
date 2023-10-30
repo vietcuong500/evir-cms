@@ -1,18 +1,15 @@
 import { Spin } from "antd";
-import { useUpdatePost } from "hooks/posts";
 import {
   useDeleteProduct,
   useDetailProduct,
   useUpdateProduct,
 } from "hooks/product";
-import React from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ProductProvider from "./ProductProvider";
 
 function UpdateProduct() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { state } = useLocation();
   const { mutateAsync: onDelete } = useDeleteProduct();
   const { isPending, mutateAsync } = useUpdateProduct();
   const { isLoading, isSuccess, isError, data } = useDetailProduct(Number(id));
@@ -49,7 +46,6 @@ function UpdateProduct() {
   };
   if (isLoading) return <Spin />;
   if (isError) return <div>error</div>;
-  console.log(data);
   if (data)
     return (
       <ProductProvider

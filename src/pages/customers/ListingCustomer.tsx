@@ -52,6 +52,16 @@ function ListingCustomer() {
           />
         </div>
         <Table
+          pagination={{
+            total: data ? data.total : 0,
+            pageSize: 10,
+            onChange(page) {
+              setParams({
+                ...params,
+                page,
+              });
+            },
+          }}
           size="small"
           loading={isLoading}
           dataSource={

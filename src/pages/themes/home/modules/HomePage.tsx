@@ -8,12 +8,22 @@ export const useThemes = () => useContext(ThemeContext);
 
 function HomePage() {
   const [openEdit, setOpenEditor] = useToggle(false);
-  const [config, setConfig] = useState([])
+  const [config, setConfig] = useState([
+    {
+      type: "text",
+      link_to: "sub_title",
+    },
+  ]);
   return (
     <ThemeContext.Provider value={{ openEdit, setOpenEditor }}>
       <div className="flex flex-col gap-y-12">
         <HeroBanner />
       </div>
+      {
+        openEdit ? <div>
+            
+        </div> : null
+      }
     </ThemeContext.Provider>
   );
 }
