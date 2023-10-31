@@ -24,4 +24,23 @@ cdnConfig.interceptors.request.use(
   }
 );
 
+cdnConfig.interceptors.response.use(
+  async (response) => {
+    if (response.data) {
+      return response.data;
+    }
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 403 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      //const access_token = await refreshAccessToken();
+      const access_token = "";
+      axios.defaults.headers.common["Authorization"] = "Bearer " + access_token;
+      return cdnConfig(originalRequest);
+    }
+    return Promise.reject(error);
+  }
+);
 export default cdnConfig;

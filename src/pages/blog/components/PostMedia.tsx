@@ -1,9 +1,6 @@
-import { Button, Upload } from "antd";
 import cdnConfig from "config/cdnConfig";
-import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { FiPlus, FiUpload } from "react-icons/fi";
-import { useToggle } from "react-use";
 
 function PostMedia() {
   const { control } = useFormContext();
@@ -31,9 +28,10 @@ function PostMedia() {
                   if (file[0]) {
                     formData.append("file", file[0]);
 
-                    const res = await cdnConfig
-                      .post("uploadFile", formData)
-                      .then((res) => res.data);
+                    const res: any = await cdnConfig.post(
+                      "uploadFile",
+                      formData
+                    );
                     if (res) {
                       onChange(res.fileDownloadUri);
                     }
