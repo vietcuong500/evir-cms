@@ -49,11 +49,12 @@ function UpdateProduct() {
   if (data)
     return (
       <ProductProvider
+        productId={Number(id)}
         handleSubmit={handleSubmit}
         loadingSubmit={isPending}
         defaultValues={{
           ...data.data,
-          category_id: data.data.category.id,
+          category_id: data.data.category?.id,
         }}
         handleDelete={handleDelete}
       />

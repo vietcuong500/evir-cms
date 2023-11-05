@@ -62,7 +62,7 @@ function PostInfo() {
                     const formData = new FormData();
                     formData.append("file", blobInfo.blob());
                     try {
-                      const res = await cdnConfig
+                      const res: any = await cdnConfig
                         .post("uploadFile", formData)
                         ;
                       if (res) {

@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Input, Tag } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
@@ -17,8 +17,9 @@ function ProductInfo() {
           render={({ field: { onChange, value } }) => (
             <div>
               <label className="mb-1 inline-block" htmlFor="name">
-                Tên sản phẩm
+                <span className="inline-block mr-2"> Tên sản phẩm</span>
               </label>
+
               <Input
                 id="name"
                 value={value}
