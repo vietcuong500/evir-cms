@@ -55,6 +55,10 @@ const nav: MenuProps["items"] = [
         key: "inventory",
         label: <Link to="inventory">Hàng tồn kho</Link>,
       },
+      {
+        key: "review",
+        label: <Link to="review">Đánh giá</Link>,
+      },
     ],
   },
   {

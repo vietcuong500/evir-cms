@@ -27,6 +27,8 @@ import AddDiscountMaster from "pages/discounts/modules/AddDiscountMaster";
 import UpdateDiscountMaster from "pages/discounts/modules/UpdateDiscountMaster";
 import { AddComment, ListingComment, UpdateComment } from "pages/comment";
 import { HomePage } from "pages/themes/home";
+import OrderDetail from "pages/orders/modules/OrderDetail";
+import ListingReview from "pages/reviews/modules/ListingReview";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +41,9 @@ export const router = createBrowserRouter(
             <Route path="add" Component={AddProduct} />
             <Route path=":id" Component={UpdateProduct} />
           </Route>
+          <Route path="review">
+            <Route path="" Component={ListingReview} />
+          </Route>
           <Route path="collections">
             <Route path="" Component={ListingCollection} />
             <Route path="add" Component={AddCollection} />
@@ -47,6 +52,7 @@ export const router = createBrowserRouter(
           <Route path="orders">
             <Route path="" Component={ListingOrder} />
             <Route path="add" Component={AddOrder} />
+            <Route path=":id" Component={OrderDetail} />
           </Route>
           <Route path="customers">
             <Route path="" Component={ListingCustomer} />

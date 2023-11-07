@@ -26,18 +26,18 @@ function ProductTranslate(props: any) {
     if (data) {
       const translateByLanguage = data.data.find(
         (el: any) => el.language_code === language
-      ).column;
-      console.log(translateByLanguage);
-      const name = translateByLanguage.find(
-        (el: any) => el.ref_column === "name"
-      ).content;
-      const description = translateByLanguage.find(
-        (el: any) => el.ref_column === "description"
-      ).content;
-      reset({
-        name,
-        description,
-      });
+      );
+      if (translateByLanguage) {
+        const { column } = translateByLanguage;
+        const name = column.find((el: any) => el.ref_column === "name").content;
+        const description = column.find(
+          (el: any) => el.ref_column === "description"
+        ).content;
+        reset({
+          name,
+          description,
+        });
+      }
     }
   }, [data]);
 

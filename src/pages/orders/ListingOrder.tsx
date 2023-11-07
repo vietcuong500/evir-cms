@@ -1,4 +1,14 @@
-import { Button, Divider, Input, Popover, Radio, Table, Tabs, Tag } from "antd";
+import {
+  Button,
+  Divider,
+  Input,
+  Popover,
+  Radio,
+  Table,
+  Tabs,
+  Tag,
+  Tooltip,
+} from "antd";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -7,10 +17,12 @@ import {
   MdPlusOne,
   MdSearch,
 } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
+import { FiCheck, FiPlus } from "react-icons/fi";
 import { Filter, TableFilter } from "components";
-import { useListingOrder } from "./hook";
+import { useChangeStatusOrder, useListingOrder } from "./hook";
 import moment from "moment";
+import { ORDER_STATUS, PAYMENT_STATUS } from "types/common";
+import { formatCurrency } from "utlis/common";
 
 export type STATUS_ORDER =
   | "NEW_ORDER"
@@ -26,7 +38,9 @@ function ListingOrder() {
     keyword: "",
     filter_status: "NEW_ORDER",
   });
-  const { isLoading, data } = useListingOrder(params);
+  const { isLoading, data, refetch, isPlaceholderData } =
+    useListingOrder(params);
+  const { isPending, mutateAsync } = useChangeStatusOrder();
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -71,7 +85,7 @@ function ListingOrder() {
           <Tabs
             className=""
             defaultActiveKey="NEW_ORDER"
-            onChange={(value) => setParams({ ...params, filter_status: value })}
+            onChange={(value) => setParams({ ...params, filter_status: value, page: 1 })}
             items={[
               {
                 key: "NEW_ORDER",
@@ -89,10 +103,15 @@ function ListingOrder() {
                 key: "DELIVERED",
                 label: "Giao hàng thành công",
               },
+              {
+                key: "CANCELLED",
+                label: "Đã hủy",
+              },
             ]}
           />
         </div>
         <Table
+          loading={isLoading || isPlaceholderData}
           pagination={{
             total: data ? data.total : 0,
             pageSize: 10,
@@ -126,30 +145,106 @@ function ListingOrder() {
               title: "Khách hàng",
             },
             {
-              key: "status",
-              dataIndex: "status",
-              title: "Trạng thái",
+              key: "payment_type",
+              dataIndex: "payment_type",
+              title: "Phương thức thanh toán",
               render: (value, record) => (
                 <div className="inline-flex flex-col">
-                  <p className="font-semibold">{record.payment_type}</p>
-                  <Tag bordered={false} color="default">
-                    <span className="mr-2 w-2 h-2 rounded-full bg-neutral-500 inline-block"></span>
-                    {value}
+                  <p className="font-semibold">{value}</p>
+                  <Tag
+                    bordered={false}
+                    color={
+                      record.payment_status === "PAID" ? "success" : "warning"
+                    }
+                  >
+                    {PAYMENT_STATUS[record.payment_status]}
                   </Tag>
                 </div>
               ),
             },
             {
-              key: "items",
-              dataIndex: "items",
+              key: "status",
+              dataIndex: "status",
+              title: "Trạng thái",
+              render: (value, record) => (
+                <div className="inline-flex flex-col">
+                  {/* <p className="font-semibold">{record.payment_type}</p> */}
+                  <Tag bordered={false} color="default">
+                    <span className="mr-2 w-2 h-2 rounded-full bg-neutral-500 inline-block"></span>
+                    {ORDER_STATUS[value]}
+                  </Tag>
+                </div>
+              ),
+            },
+            {
+              key: "order_details",
+              dataIndex: "order_details",
               title: "Sản phẩm",
-              render: (value) => `${value} sản phẩm`,
+              render: (value) => `${value.length} sản phẩm`,
             },
             {
               key: "total",
               dataIndex: "total",
               title: "Đơn giá",
-              render: (value) => <span>{value}</span>,
+              render: (value) => <span>{formatCurrency(value)} vnd</span>,
+            },
+            {
+              key: "actions",
+              dataIndex: "",
+              title: "",
+              render: (value, record) => (
+                <div>
+                  {record.status === "NEW_ORDER" ? (
+                    <Tooltip title="Xác nhận đơn hàng">
+                      <Button
+                        onClick={async () => {
+                          const res = await mutateAsync({
+                            id: record.id,
+                            status: "WAITING_DELIVERING",
+                          });
+                          refetch();
+                        }}
+                        type="link"
+                        // icon={<FiCheck className="text-2xl" />}
+                      >
+                        Xác nhận
+                      </Button>
+                    </Tooltip>
+                  ) : record.status === "WAITING_DELIVERING" ? (
+                    <Tooltip title="Xác nhận đơn hàng">
+                      <Button
+                        onClick={async () => {
+                          const res = await mutateAsync({
+                            id: record.id,
+                            status: "DELIVERING",
+                          });
+                          refetch();
+                        }}
+                        type="link"
+                        // icon={<FiCheck className="text-2xl" />}
+                      >
+                        Giao hàng
+                      </Button>
+                    </Tooltip>
+                  ) : record.status === "DELIVERING" ? (
+                    <Tooltip title="Xác nhận đơn hàng">
+                      <Button
+                        onClick={async () => {
+                          const res = await mutateAsync({
+                            id: record.id,
+                            status: "DELIVERED",
+                          });
+                          refetch();
+                        }}
+                        type="link"
+                        // icon={<FiCheck className="text-2xl" />}
+                      >
+                        Hoàn thành
+                      </Button>
+                    </Tooltip>
+                  ) : null}
+                </div>
+              ),
             },
           ]}
         />

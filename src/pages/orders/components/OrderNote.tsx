@@ -4,7 +4,8 @@ import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useToggle } from "react-use";
 
-function OrderNote() {
+function OrderNote(props: any) {
+  const { note } = props;
   const [isNote, setIsNote] = useToggle(false);
   return (
     <div className="box">
@@ -20,6 +21,7 @@ function OrderNote() {
       <div className="px-5 py-3">
         {isNote ? (
           <TextArea
+            value={note}
             autoSize={{ minRows: 3, maxRows: 5 }}
             placeholder="Nhập ghi chú"
           />
