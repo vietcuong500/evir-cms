@@ -5,54 +5,62 @@ import React from "react";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { FiUpload } from "react-icons/fi";
 import { useToggle } from "react-use";
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  initialSlide: 0,
+};
 
 function ProductMedia() {
   const [open, setOpen] = useToggle(false);
-  const { control } = useFormContext();
-  const images = useWatch({
+  const { control, setValue } = useFormContext();
+  const lst_image = useWatch({
     control,
-    name: "images",
+    name: "lst_image",
   });
   return (
     <div className="box">
-      {/* <FileUpload open={open} toggle={setOpen} /> */}
+      <FileUpload
+        onChange={(value: string) => {
+          setValue("lst_image", [...lst_image, value]);
+        }}
+        onDelete={(temp: string[]) => {
+          setValue(
+            "lst_image",
+            lst_image.filter((el: any) => !temp.includes(el))
+          );
+        }}
+        files={lst_image || []}
+        open={open}
+        toggle={setOpen}
+      />
       <div className="box-title flex items-center justify-between">
         <p>Media</p>
-        <Controller
-          control={control}
-          name="images"
-          render={({ field: { onChange } }) => (
-            <label htmlFor="file" className="cursor-pointer">
-              <input
-                className="hidden"
-                id="file"
-                type="file"
-                name="file"
-                onChange={async (e) => {
-                  const formData = new FormData();
-                  const file: any = e.target.files;
-                  if (file[0]) {
-                    formData.append("file", file[0]);
-
-                    const res: any = await cdnConfig.post(
-                      "uploadFile",
-                      formData
-                    );
-                    if (res) {
-                      onChange(res.fileDownloadUri);
-                    }
-                  }
-                }}
-              />
-              <FiUpload />
-            </label>
-          )}
+        <Button
+          type="text"
+          icon={<FiUpload className="text-xl" />}
+          onClick={setOpen}
         />
       </div>
       <div className="px-5 py-3 h-40">
-        <div className="w-full h-full bg-neutral-200 border border-neutral-500 rounded overflow-hidden">
-          <img className="w-full h-full object-cover" src={images} alt="" />
-        </div>
+        <Slider className="w-full h-full bg-neutral-100 border border-neutral-100 rounded overflow-hidden">
+          {lst_image?.map((el: any, id: number) => (
+            <img
+              key={id}
+              className="w-full h-full object-cover"
+              src={el}
+              alt=""
+            />
+          ))}
+        </Slider>
       </div>
     </div>
   );

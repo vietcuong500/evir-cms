@@ -11,6 +11,7 @@ export interface ProductCreateModel {
   price: number | null;
   stock: number | null;
   category_id: number | null;
+  lst_image: string[];
 }
 
 function AddProduct() {
@@ -41,6 +42,7 @@ function AddProduct() {
         price: 18000,
         stock: 89,
         category_id: null,
+        lst_image: [],
       }}
     />
   );

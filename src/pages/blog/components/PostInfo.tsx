@@ -28,20 +28,28 @@ function PostInfo() {
             </div>
           )}
         />
+        <Controller
+          control={control}
+          name="summary"
+          render={({ field: { onChange, value } }) => (
+            <div>
+              <label className="mb-1 inline-block" htmlFor="desc">
+                Mô tả
+              </label>
+              <TextArea
+                value={value}
+                onChange={onChange}
+                autoSize={{
+                  minRows: 3,
+                  maxRows: 5,
+                }}
+                id="desc"
+                placeholder=""
+              />
+            </div>
+          )}
+        />
 
-        <div>
-          <label className="mb-1 inline-block" htmlFor="desc">
-            Mô tả
-          </label>
-          <TextArea
-            autoSize={{
-              minRows: 3,
-              maxRows: 5,
-            }}
-            id="desc"
-            placeholder=""
-          />
-        </div>
         <div>
           <Controller
             control={control}
@@ -62,9 +70,10 @@ function PostInfo() {
                     const formData = new FormData();
                     formData.append("file", blobInfo.blob());
                     try {
-                      const res: any = await cdnConfig
-                        .post("uploadFile", formData)
-                        ;
+                      const res: any = await cdnConfig.post(
+                        "uploadFile",
+                        formData
+                      );
                       if (res) {
                         return res.fileDownloadUri;
                       }

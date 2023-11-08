@@ -24,6 +24,8 @@ function UpdateProduct() {
       price,
       stock,
       category_id,
+      lst_image,
+      
     } = data;
     mutateAsync({
       images,
@@ -36,6 +38,7 @@ function UpdateProduct() {
       stock,
       category_id,
       id,
+      lst_image
     });
   };
   const handleDelete = async () => {
@@ -55,6 +58,7 @@ function UpdateProduct() {
         defaultValues={{
           ...data.data,
           category_id: data.data.category?.id,
+          lst_image: data.data.lst_image || [],
         }}
         handleDelete={handleDelete}
       />

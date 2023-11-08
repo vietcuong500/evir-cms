@@ -1,21 +1,47 @@
 import { Button, Modal } from "antd";
-import React, { useState } from "react";
+import cdnConfig from "config/cdnConfig";
 import { FiUpload } from "react-icons/fi";
-import CardUpload from "./CardUpload";
 import ListCartUpload from "./ListCartUpload";
 
 function FileUpload(props: any) {
-  const { open, toggle } = props;
-  const [files, setFiles] = useState([]);
+  const { open, toggle, files, onChange, onDelete } = props;
   return (
     <Modal centered open={open} footer={false} onCancel={toggle}>
       <div className="bg-white shadow rounded min-w-[60rem]">
-        <div className="flex border-b border-neutral-100 p-5 items-center justify-between">
-          <Button icon={<FiUpload />}>Upload</Button>
+        <div className="flex border-b border-neutral-300 p-5 items-center justify-between">
+          <label
+            htmlFor="file"
+            className="cursor-pointer flex items-center gap-2"
+          >
+            <input
+              className="hidden"
+              id="file"
+              type="file"
+              name="file"
+              onChange={async (e) => {
+                const formData = new FormData();
+                const file: any = e.target.files;
+                if (file[0]) {
+                  formData.append("file", file[0]);
+
+                  const res: any = await cdnConfig.post("uploadFile", formData);
+                  if (res) {
+                    onChange(res.fileDownloadUri);
+                  }
+                }
+              }}
+            />
+            <FiUpload />
+            <span>Tải lên</span>
+          </label>
+          {/* <Button icon={<FiUpload />}>Upload</Button> */}
         </div>
         <div className="flex h-96">
           <div className="px-5 py-3 overflow-auto w-full">
-            <ListCartUpload onChange={(items: any) => setFiles(items)} />
+            <ListCartUpload
+              onDelete={(images: string[]) => onDelete(images)}
+              files={files || []}
+            />
           </div>
         </div>
       </div>

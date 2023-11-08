@@ -1,7 +1,7 @@
 import serviceConfig from "config/service";
 
 const url = {
-  listing: "/review",
+  listing: "/admin/review",
 };
 
 export const reviewService = {

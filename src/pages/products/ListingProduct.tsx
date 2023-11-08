@@ -150,9 +150,10 @@ function ListingProduct() {
               ),
             },
             {
-              key: "catgory",
-              dataIndex: "catgory",
+              key: "category",
+              dataIndex: "category",
               title: "Danh mục",
+              render: (value) => <span>{value?.name}</span>,
             },
 
             {

@@ -11,6 +11,7 @@ import ProductInventory from "../components/ProductInventory";
 import ProductMedia from "../components/ProductMedia";
 import ProductPrice from "../components/ProductPrice";
 import ProductStatus from "../components/ProductStatus";
+import ProductThumbnail from "../components/ProductThumbnail";
 import ProductTranslate from "./ProductTranslate";
 
 interface IProductProviderProps {
@@ -67,6 +68,7 @@ function ProductProvider(props: IProductProviderProps) {
         }
         contentRight={
           <>
+            <ProductThumbnail />
             <ProductMedia />
             <ProductStatus />
             <ProductCollection />

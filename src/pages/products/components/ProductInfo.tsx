@@ -29,19 +29,28 @@ function ProductInfo() {
             </div>
           )}
         />
-        <div>
-          <label className="mb-1 inline-block" htmlFor="desc">
-            Mô tả
-          </label>
-          <TextArea
-            autoSize={{
-              minRows: 3,
-              maxRows: 5,
-            }}
-            id="desc"
-            placeholder="Tên sản phẩm"
-          />
-        </div>
+        <Controller
+          control={control}
+          name="about_the_product"
+          render={({ field: { onChange, value } }) => (
+            <div>
+              <label className="mb-1 inline-block" htmlFor="desc">
+                Mô tả
+              </label>
+              <TextArea
+                value={value}
+                onChange={onChange}
+                autoSize={{
+                  minRows: 3,
+                  maxRows: 5,
+                }}
+                id="desc"
+                placeholder="Tên sản phẩm"
+              />
+            </div>
+          )}
+        />
+
         <div>
           <Controller
             control={control}

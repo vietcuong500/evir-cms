@@ -12,7 +12,7 @@ function UpdatePost() {
   const { isPending: loadingDelete, mutateAsync: mutateDelete } =
     useDeletePost();
   const handleSubmit = (data: any) => {
-    const { title, content, avatar, category_id, author_id, status } = data;
+    const { title, content, avatar, category_id, author_id, status, summary } = data;
     mutate({
       id: Number(id),
       data: {
@@ -22,6 +22,7 @@ function UpdatePost() {
         category_id,
         author_id,
         status,
+        summary
       },
     });
   };

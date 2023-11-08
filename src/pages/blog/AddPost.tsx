@@ -32,6 +32,7 @@ function AddPost() {
         category_id: null,
         author_id: null,
         status: "DRAFT",
+        summary: ""
       }}
       handleSubmit={handleSubmit}
       loadingSubmit={isPending}
