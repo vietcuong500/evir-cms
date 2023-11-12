@@ -97,7 +97,7 @@ function ListingCollection() {
                   state={{
                     item: record,
                   }}
-                  to={`/collections/${record.id}`}
+                  to={`${record.id}`}
                 >
                   {value}
                 </Link>

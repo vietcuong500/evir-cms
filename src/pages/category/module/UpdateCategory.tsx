@@ -28,7 +28,7 @@ function UpdateCategory() {
   const handleDelete = async () => {
     const res = await mutateDelete(Number(id));
     if (res.code === 200 || res.code === 0) {
-      navigate("/category");
+      navigate("/admin/category");
     }
   };
   if (isLoading) return <Spin />;

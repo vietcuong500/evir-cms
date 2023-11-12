@@ -20,7 +20,7 @@ function CategoryProvider(props: any) {
         contentLeft={
           <>
             <CategoryInfo />
-            <CategoryPost />
+            {/* <CategoryPost /> */}
           </>
         }
         contentRight={
@@ -30,7 +30,7 @@ function CategoryProvider(props: any) {
         }
         footer={
           <>
-            <Button onClick={() => navigate("/posts")}>Hủy</Button>
+            <Button onClick={() => navigate("/admin/category")}>Hủy</Button>
             {handleDelete ? (
               <Button danger type="primary" onClick={handleDelete}>
                 Xóa

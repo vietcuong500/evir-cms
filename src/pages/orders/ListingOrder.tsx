@@ -131,7 +131,7 @@ function ListingOrder() {
               key: "id",
               dataIndex: "id",
               title: "",
-              render: (value) => <Link to={`/orders/${value}`}>#{value}</Link>,
+              render: (value) => <Link to={`${value}`}>#{value}</Link>,
             },
             {
               key: "order_date",

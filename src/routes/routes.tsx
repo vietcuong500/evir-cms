@@ -32,10 +32,10 @@ import ListingReview from "pages/reviews/modules/ListingReview";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route Component={AuthProvider}>
-      <Route path="/login" Component={LoginLayout} />
+    <Route path="/admin" Component={AuthProvider}>
+      <Route path="login" Component={LoginLayout} />
       <Route Component={Authentication}>
-        <Route path="/" Component={Root}>
+        <Route path="" Component={Root}>
           <Route path="products">
             <Route path="" Component={ListingProduct} />
             <Route path="add" Component={AddProduct} />

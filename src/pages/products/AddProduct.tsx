@@ -23,7 +23,7 @@ function AddProduct() {
       slug: data.name.replaceAll(" ", "-"),
     });
     if (res.code === 0 || res.code === 200) {
-      navigate(`/products/${res.data.id}`);
+      navigate(`/admin/products/${res.data.id}`);
     }
   };
 
@@ -35,7 +35,7 @@ function AddProduct() {
         images:
           "https://www.mountaingoatsoftware.com/uploads/blog/2016-09-06-what-is-a-product.png",
         name: "n111111",
-        slug: "",
+        slug: "n1111",
         description: "des",
         about_the_product: "nononon",
         how_to_use: "jojoasdf",

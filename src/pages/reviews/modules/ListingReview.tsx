@@ -1,7 +1,7 @@
 import { Button, Table, Tag } from "antd";
 import { TableFilter } from "components";
 import React, { useState } from "react";
-import { useListingReview } from "../hooks";
+import { useDeleteReview, useListingReview } from "../hooks";
 import { Rate } from "antd";
 
 function ListingReview() {
@@ -11,7 +11,8 @@ function ListingReview() {
     keyword: "",
   });
 
-  const { isLoading, data, isSuccess } = useListingReview(params);
+  const { isLoading, data, isSuccess, refetch } = useListingReview(params);
+  const { isPending, mutateAsync } = useDeleteReview();
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -65,6 +66,22 @@ function ListingReview() {
               title: "Sản phẩm",
               render: (value) => <span>{value.product?.name}</span>,
             },
+            // {
+            //   key: "x",
+            //   dataIndex: "",
+            //   title: "Hành động",
+            //   render: (value, record) => (
+            //     <Button
+            //       onClick={() => {
+            //         mutateAsync(record.id);
+            //         refetch();
+            //       }}
+            //       type="link"
+            //     >
+            //       Xóa
+            //     </Button>
+            //   ),
+            // },
           ]}
         />
       </div>

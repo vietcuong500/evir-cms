@@ -33,7 +33,7 @@ function PostProvider(props: any) {
         }
         footer={
           <>
-            <Button onClick={() => navigate("/posts")}>Hủy</Button>
+            <Button onClick={() => navigate("/admin/posts")}>Hủy</Button>
             {handleDelete ? (
               <Button danger type="primary" onClick={handleDelete}>
                 Xóa

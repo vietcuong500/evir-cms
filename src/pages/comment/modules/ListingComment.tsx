@@ -17,7 +17,7 @@ function ListingComment() {
       <div className="flex items-center justify-between mb-4">
         <p className="text-lg font-semibold text-neutral-700">Bình luận</p>
         <div className="flex items-center gap-2">
-          <Link to="/comment/add">
+          <Link to="add">
             <Button type="primary">Thêm bình luận</Button>
           </Link>
         </div>
@@ -51,7 +51,7 @@ function ListingComment() {
                   // state={{
                   //   item: record,
                   // }}
-                  to={"/comment/" + record.id}
+                  to={record.id}
                 >
                   {value}
                 </Link>

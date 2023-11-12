@@ -1,6 +1,5 @@
 npm install
-npm run build --mode production
-
+npm run build
 docker build -t cms .
 
 docker save cms > cms.tar

@@ -64,7 +64,7 @@ function UpdateDiscountMaster() {
   const handleDelete = async () => {
     const res = await deleteDiscount(Number(id));
     if (res.code === 200 || res.code === 0) {
-      navigate("/discounts");
+      navigate("/admin/discounts");
     }
   };
 

@@ -57,7 +57,7 @@ function ListingDiscount() {
               render: (value, record) => (
                 <div>
                   <Link
-                    to={"/discounts/" + record.id}
+                    to={record.id}
                     className="font-semibold text-neutral-700"
                   >
                     {value}

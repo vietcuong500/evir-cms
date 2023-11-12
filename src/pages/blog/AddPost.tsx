@@ -20,7 +20,7 @@ function AddPost() {
       author_id: user?.id,
     });
     if (res.code === 200 || res.code === 0) {
-      navigate(`/posts/${res.data.id}`);
+      navigate(`/admin/posts/${res.data.id}`);
     }
   };
   return (

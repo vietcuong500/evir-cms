@@ -143,7 +143,7 @@ function ListingProduct() {
                   state={{
                     item: record,
                   }}
-                  to={`/products/${record.id}`}
+                  to={`${record.id}`}
                 >
                   {value}
                 </Link>

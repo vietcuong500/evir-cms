@@ -16,7 +16,7 @@ function AddComment() {
     });
 
     if (res.code === 0 || res.code === 200) {
-      navigate("/comment/" + res.data.id);
+      navigate("/admin/comment/" + res.data.id);
     }
   };
   return (

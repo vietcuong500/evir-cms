@@ -29,7 +29,7 @@ function UpdatePost() {
   const handleDelete = async () => {
     const res = await mutateDelete(Number(id));
     if (res.code === 200 || res.code === 0) {
-      navigate("/posts");
+      navigate("/admin/posts");
     }
   };
   if (isLoading) return <Spin />;
