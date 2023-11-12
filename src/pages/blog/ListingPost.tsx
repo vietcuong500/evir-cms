@@ -92,13 +92,13 @@ function ListingPost() {
               key: "category",
               dataIndex: "category",
               title: "Danh mục",
-              render: (value) => <span>{value.name}</span>,
+              render: (value) => <span>{value?.name}</span>,
             },
             {
               key: "author",
               dataIndex: "author",
               title: "Tác giả",
-              render: (value) => <span>{value.username}</span>,
+              render: (value) => <span>{value?.username}</span>,
             },
             {
               key: "status",

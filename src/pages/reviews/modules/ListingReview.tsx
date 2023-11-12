@@ -1,7 +1,6 @@
 import { Button, Table, Tag } from "antd";
 import { TableFilter } from "components";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useListingReview } from "../hooks";
 import { Rate } from "antd";
 
@@ -13,7 +12,6 @@ function ListingReview() {
   });
 
   const { isLoading, data, isSuccess } = useListingReview(params);
-  console.log(data);
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -48,7 +46,7 @@ function ListingReview() {
               key: "user",
               dataIndex: "user",
               title: "Khách hàng",
-              render: (value) => <span>{value.username}</span>,
+              render: (value) => <span>{value?.username}</span>,
             },
             {
               key: "star",
@@ -65,7 +63,7 @@ function ListingReview() {
               key: "order_detail",
               dataIndex: "order_detail",
               title: "Sản phẩm",
-              render: (value) => <span>{value.product.name}</span>,
+              render: (value) => <span>{value.product?.name}</span>,
             },
           ]}
         />

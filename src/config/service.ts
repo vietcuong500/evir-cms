@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const serviceConfig = axios.create({
-  baseURL: "http://103.57.220.81:8082/api/v1",
+  baseURL: import.meta.env.VITE_APP_API_URL,
 });
 
 serviceConfig.interceptors.request.use(
