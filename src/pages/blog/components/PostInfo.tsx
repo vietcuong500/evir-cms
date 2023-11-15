@@ -1,6 +1,7 @@
 import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { cdnService } from "apis/cdn";
 import cdnConfig from "config/cdnConfig";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 
@@ -75,7 +76,9 @@ function PostInfo() {
                         formData
                       );
                       if (res) {
-                        return res.fileDownloadUri;
+                        return `${import.meta.env.VITE_APP_CDN}/${
+                          res?.fileName
+                        }`;
                       }
 
                       throw new Error("Unable to upload image");

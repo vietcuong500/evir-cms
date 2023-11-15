@@ -30,7 +30,7 @@ function CategoryProvider(props: any) {
         }
         footer={
           <>
-            <Button onClick={() => navigate("/admin/category")}>Hủy</Button>
+            <Button onClick={() => navigate("/category")}>Hủy</Button>
             {handleDelete ? (
               <Button danger type="primary" onClick={handleDelete}>
                 Xóa

@@ -29,13 +29,15 @@ import { AddComment, ListingComment, UpdateComment } from "pages/comment";
 import { HomePage } from "pages/themes/home";
 import OrderDetail from "pages/orders/modules/OrderDetail";
 import ListingReview from "pages/reviews/modules/ListingReview";
+import ListingNavigate from "pages/themes/navigate/modules/ListingNavigate";
+import UpdatePage from "pages/themes/navigate/modules/UpdatePage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/admin" Component={AuthProvider}>
-      <Route path="login" Component={LoginLayout} />
+    <Route Component={AuthProvider}>
+      <Route path="/login" Component={LoginLayout} />
       <Route Component={Authentication}>
-        <Route path="" Component={Root}>
+        <Route path="/" Component={Root}>
           <Route path="products">
             <Route path="" Component={ListingProduct} />
             <Route path="add" Component={AddProduct} />
@@ -84,6 +86,10 @@ export const router = createBrowserRouter(
           </Route>
           <Route path="themes">
             <Route path="home" Component={HomePage} />
+            <Route path="navigate">
+              <Route path="" Component={ListingNavigate} />
+              <Route path=":id" Component={UpdatePage} />
+            </Route>
           </Route>
         </Route>
       </Route>

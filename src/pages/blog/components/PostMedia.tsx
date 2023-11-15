@@ -1,3 +1,4 @@
+import { cdnService } from "apis/cdn";
 import cdnConfig from "config/cdnConfig";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { FiPlus, FiUpload } from "react-icons/fi";
@@ -23,19 +24,9 @@ function PostMedia() {
                 type="file"
                 name="file"
                 onChange={async (e) => {
-                  const formData = new FormData();
                   const file: any = e.target.files;
-                  if (file[0]) {
-                    formData.append("file", file[0]);
-
-                    const res: any = await cdnConfig.post(
-                      "uploadFile",
-                      formData
-                    );
-                    if (res) {
-                      onChange(res.fileDownloadUri);
-                    }
-                  }
+                  const url = await cdnService.upload(file[0]);
+                  onChange(url);
                 }}
               />
               <FiUpload />

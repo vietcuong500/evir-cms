@@ -28,7 +28,7 @@ function DiscountMasterProvider(props: any) {
         contentRight={<></>}
         footer={
           <>
-            <Button onClick={() => navigate("/admin/discounts")}>Hủy</Button>
+            <Button onClick={() => navigate("/discounts")}>Hủy</Button>
             {handleDelete ? (
               <Button danger type="primary" onClick={handleDelete}>
                 Xóa

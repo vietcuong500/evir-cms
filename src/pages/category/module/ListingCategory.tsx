@@ -20,7 +20,7 @@ function ListingCategory() {
           Danh mục bài viết
         </p>
         <div className="flex items-center gap-2">
-          <Button onClick={() => navigate("/admin/category/add")} type="primary">
+          <Button onClick={() => navigate("/category/add")} type="primary">
             Thêm danh mục
           </Button>
         </div>

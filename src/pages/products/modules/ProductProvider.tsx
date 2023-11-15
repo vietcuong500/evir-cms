@@ -76,7 +76,7 @@ function ProductProvider(props: IProductProviderProps) {
         }
         footer={
           <>
-            <Button onClick={() => navigate("/admin/products")}>Hủy</Button>
+            <Button onClick={() => navigate("/products")}>Hủy</Button>
             {handleDelete ? (
               <Button danger type="primary" onClick={handleDelete}>
                 Xóa

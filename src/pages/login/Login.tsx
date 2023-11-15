@@ -43,7 +43,7 @@ function Login() {
     if (data.code === 200) {
       Cookies.set("user", data.data);
       Cookies.set("access_token", data.data.token);
-      navigate("/admin");
+      navigate("/");
     }
   });
   const handleForgetPassword = () => setCurrentStep("send_mail");

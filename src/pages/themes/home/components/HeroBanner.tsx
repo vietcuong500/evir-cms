@@ -1,4 +1,5 @@
 import { Input, Popover } from "antd";
+import { cdnService } from "apis/cdn";
 import Label from "components/Label/Label";
 import cdnConfig from "config/cdnConfig";
 import React from "react";
@@ -10,8 +11,6 @@ const Hero1 = () => {
   const { control, watch } = useFormContext();
   return (
     <Popover
-      trigger="click"
-      placement="bottom"
       content={
         <div className="p-5 flex flex-col gap-4 w-72">
           <Controller
@@ -59,19 +58,9 @@ const Hero1 = () => {
                   name=""
                   id="hero[0].image"
                   onChange={async (e) => {
-                    const formData = new FormData();
                     const file: any = e.target.files;
-                    if (file[0]) {
-                      formData.append("file", file[0]);
-
-                      const res: any = await cdnConfig.post(
-                        "uploadFile",
-                        formData
-                      );
-                      if (res) {
-                        onChange(res.fileDownloadUri);
-                      }
-                    }
+                    const url = await cdnService.upload(file[0]);
+                    onChange(url);
                   }}
                 />
               )}
@@ -114,8 +103,6 @@ const Hero2 = () => {
   const { control, watch } = useFormContext();
   return (
     <Popover
-      trigger="click"
-      placement="bottom"
       content={
         <div className="p-5 flex flex-col gap-4 w-72">
           <Controller
@@ -163,19 +150,9 @@ const Hero2 = () => {
                   name=""
                   id="hero[1].image"
                   onChange={async (e) => {
-                    const formData = new FormData();
                     const file: any = e.target.files;
-                    if (file[0]) {
-                      formData.append("file", file[0]);
-
-                      const res: any = await cdnConfig.post(
-                        "uploadFile",
-                        formData
-                      );
-                      if (res) {
-                        onChange(res.fileDownloadUri);
-                      }
-                    }
+                    const url = await cdnService.upload(file[0]);
+                    onChange(url);
                   }}
                 />
               )}
@@ -217,8 +194,6 @@ const Hero3 = () => {
   const { watch, control } = useFormContext();
   return (
     <Popover
-      trigger="click"
-      placement="bottom"
       content={
         <div className="p-5 flex flex-col gap-4 w-72">
           <Controller
@@ -266,19 +241,9 @@ const Hero3 = () => {
                   name=""
                   id="hero[2].image"
                   onChange={async (e) => {
-                    const formData = new FormData();
                     const file: any = e.target.files;
-                    if (file[0]) {
-                      formData.append("file", file[0]);
-
-                      const res: any = await cdnConfig.post(
-                        "uploadFile",
-                        formData
-                      );
-                      if (res) {
-                        onChange(res.fileDownloadUri);
-                      }
-                    }
+                    const url = await cdnService.upload(file[0]);
+                    onChange(url);
                   }}
                 />
               )}
@@ -292,7 +257,11 @@ const Hero3 = () => {
     >
       <div className="w-2/3 relative h-full bg-neutral-300 p-5">
         <div className="w-full h-full absolute left-0 top-0">
-          <img className="w-full h-full object-fill object-center" src={watch("hero[2].image")} alt="" />
+          <img
+            className="w-full h-full object-fill object-center"
+            src={watch("hero[2].image")}
+            alt=""
+          />
         </div>
         <div className="absolute w-full h-full p-5 left-0 top-0 z-10">
           <p className="mb-4 uppercase text-green-600 text-sm">
@@ -313,6 +282,40 @@ const Hero3 = () => {
   );
 };
 
+const Hero4 = () => {
+  const { control, watch, getValues } = useFormContext();
+
+  return (
+    <Popover
+      content={
+        <div>
+          <Controller
+            control={control}
+            name="hero[3].image"
+            render={({ field: { onChange, value } }) => (
+              <Input
+                type="file"
+                onChange={async (e) => {
+                  const file: any = e.target.files;
+                  const url = await cdnService.upload(file[0]);
+                  onChange(url);
+                }}
+              />
+            )}
+          />
+        </div>
+      }
+    >
+      <div className="w-1/3 h-full bg-neutral-300 ring-1 ring-transparent hover:ring-lime-500">
+        <img
+          className="w-full h-full object-cover object-center"
+          src={watch("hero[3].image")}
+        />
+      </div>
+    </Popover>
+  );
+};
+
 function HeroBanner() {
   const { setOpenEditor } = useThemes();
   const { control, watch, getValues } = useFormContext();
@@ -324,7 +327,7 @@ function HeroBanner() {
           <Hero2 />
           <div className="flex items-stretch w-full h-1/2 gap-8">
             <Hero3 />
-            <div className="w-1/3 h-full bg-neutral-300"></div>
+            <Hero4 />
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ function AddCategory() {
       ...data,
     });
     if (res.code === 200 || res.code === 0) {
-      navigate(`/admin/category/${res.data.id}`);
+      navigate(`/category/${res.data.id}`);
     }
   };
   return (

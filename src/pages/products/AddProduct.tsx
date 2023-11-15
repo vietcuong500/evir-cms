@@ -23,7 +23,7 @@ function AddProduct() {
       slug: data.name.replaceAll(" ", "-"),
     });
     if (res.code === 0 || res.code === 200) {
-      navigate(`/admin/products/${res.data.id}`);
+      navigate(`/products/${res.data.id}`);
     }
   };
 

@@ -11,7 +11,7 @@ function AddCollection() {
       slug: data.name.replaceAll(" ", "-"),
     });
     if (res.code === 0 || res.code === 200) {
-      navigate(`/admin/collections/${res.data.id}`);
+      navigate(`/collections/${res.data.id}`);
     }
   };
 

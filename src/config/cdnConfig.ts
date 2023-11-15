@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const cdnConfig = axios.create({
-  baseURL: "http://103.57.220.81:8081/",
+  baseURL: "https://eviromet.com/files/v1",
 });
 
 cdnConfig.interceptors.request.use(

@@ -9,10 +9,11 @@ import {
   MdOutlineSettings,
   MdAnalytics,
 } from "react-icons/md";
-import type { MenuProps } from "antd";
+import { Button, MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
 import "./style.scss";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const { Header, Content, Sider } = Layout;
 
@@ -100,6 +101,10 @@ const nav: MenuProps["items"] = [
         key: "homepage",
         label: <Link to="/themes/home">Home page</Link>,
       },
+      {
+        key: "navigate",
+        label: <Link to="/themes/navigate">Điều hướng</Link>,
+      },
     ],
   },
 ];
@@ -108,6 +113,8 @@ const MainLayout: React.FC = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const navigate = useNavigate();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -119,6 +126,18 @@ const MainLayout: React.FC = () => {
           <p className="text-blue-600 ml-2">Infit</p>
         </div>
         <div></div>
+        <div className="flex h-full justify-center items-center">
+          <Button
+            onClick={() => {
+              Cookies.remove("access_token");
+              navigate("/login");
+            }}
+            className=""
+            type="link"
+          >
+            Đăng xuất
+          </Button>
+        </div>
       </div>
       <Layout
         style={{

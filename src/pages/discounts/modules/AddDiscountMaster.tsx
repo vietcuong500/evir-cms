@@ -23,7 +23,7 @@ function AddDiscountMaster() {
         discount_id: res.data.id,
         product_ids: products.map((el: any) => el.id),
       });
-      navigate(`/admin/discounts/${res.data.id}`);
+      navigate(`/discounts/${res.data.id}`);
     }
   };
   return (

@@ -27,7 +27,7 @@ function UpdateComment() {
   const handleDelete = async () => {
     const res = await mutateDelete(Number(id));
     if (res.code === 200 || res.code === 0) {
-      navigate("/admin/comment");
+      navigate("/comment");
     }
   };
   if (isLoading) return <Spin />;

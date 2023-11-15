@@ -1,8 +1,9 @@
 import React from "react";
 
-function ServiceCard() {
+function ServiceCard(props: any) {
+  const { title, desc, action } = props;
   return (
-    <div className="relative">
+    <div className="relative hover:shadow-md">
       <div className="mx-auto w-[100px] h-[100px] rounded-full bg-neutral-100 p-5 absolute left-[50%] -translate-x-[50%] -top-[50px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,13 +23,12 @@ function ServiceCard() {
         </svg>
       </div>
       <div className="text-center p-5 pt-16 pb-8 border border-neutral-200">
-        <p className="text-lg mb-2">Ullamcorper</p>
-        <p className="text-sm text-neutral-800">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor.
-        </p>
+        <p className="text-lg mb-2">{title}</p>
+        <p className="text-sm text-neutral-800">{desc}</p>
       </div>
-      <button className="mx-auto -mt-[18px] h-9 w-36 bg-green-600 rounded text-white uppercase">read more</button>
+      <button className="mx-auto -mt-[18px] h-9 w-36 bg-green-600 rounded text-white uppercase">
+        read more
+      </button>
     </div>
   );
 }

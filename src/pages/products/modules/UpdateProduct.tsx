@@ -44,7 +44,7 @@ function UpdateProduct() {
   const handleDelete = async () => {
     const res = await onDelete(Number(id));
     if (res.code === 200 || res.code === 0) {
-      navigate("/admin/products");
+      navigate("/products");
     }
   };
   if (isLoading) return <Spin />;
