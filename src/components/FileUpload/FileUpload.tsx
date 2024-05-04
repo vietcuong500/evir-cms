@@ -11,14 +11,13 @@ function FileUpload(props: any) {
       <div className="bg-white shadow rounded min-w-[60rem]">
         <div className="flex border-b border-neutral-300 p-5 items-center justify-between">
           <label
-            htmlFor="file"
+            htmlFor="files"
             className="cursor-pointer flex items-center gap-2"
           >
             <input
               className="hidden"
-              id="file"
+              id="files"
               type="file"
-              name="file"
               onChange={async (e) => {
                 const file: any = e.target.files;
                 const url = await cdnService.upload(file[0]);

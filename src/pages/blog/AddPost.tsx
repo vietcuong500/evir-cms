@@ -3,6 +3,7 @@ import { FormContext } from "antd/es/form/context";
 import { useAuth } from "auth/AuthProvider";
 import { useStorePost } from "hooks/posts";
 import FormPageLayout from "layouts/FormPageLayout";
+import { enqueueSnackbar } from "notistack";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import PostCategory from "./components/PostCategory";
@@ -20,19 +21,28 @@ function AddPost() {
       author_id: user?.id,
     });
     if (res.code === 200 || res.code === 0) {
+      enqueueSnackbar({
+        message: "Thêm bài viết thành công",
+        variant: "success",
+      });
       navigate(`/posts/${res.data.id}`);
+    } else {
+      enqueueSnackbar({
+        message: "Thêm bài viết không thành công",
+        variant: "error",
+      });
     }
   };
   return (
     <PostProvider
       defaultValues={{
         title: "Bài 1",
-        content: "content ngắn thôi",
+        content: "",
         avatar: null,
         category_id: null,
         author_id: null,
         status: "DRAFT",
-        summary: ""
+        summary: "",
       }}
       handleSubmit={handleSubmit}
       loadingSubmit={isPending}

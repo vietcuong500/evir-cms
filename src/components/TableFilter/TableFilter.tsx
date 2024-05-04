@@ -1,18 +1,31 @@
 import { Button, Input, Popover, Radio } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
+import { useDebounce } from "react-use";
 
-function TableFilter() {
+function TableFilter(props: any) {
+  const { onChange } = props;
+  const [keyword, setKeyword] = useState("");
+
+  useDebounce(
+    () => {
+      onChange(keyword);
+    },
+    500,
+    [keyword]
+  );
   return (
     <div className="px-5 py-3 border-b border-neutral-100">
       <div className="flex gap-2">
         <Input
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
           prefix={<MdSearch className="text-xl text-neutral-500" />}
           bordered={false}
           placeholder="Nhập từ khóa cần tìm kiếm"
         />
         <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-        <Popover
+        {/* <Popover
           trigger="click"
           placement="bottomLeft"
           content={
@@ -42,7 +55,7 @@ function TableFilter() {
           <Button
             icon={<MdOutlineSort className="text-xl text-neutral-500" />}
           />
-        </Popover>
+        </Popover> */}
       </div>
     </div>
   );

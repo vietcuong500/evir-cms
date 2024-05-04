@@ -3,6 +3,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ProductCard from "./ProductCard";
+import { Controller, useFormContext } from "react-hook-form";
+import { useToggle } from "react-use";
+import { Drawer, Input } from "antd";
 
 const settings = {
   dots: true,
@@ -40,67 +43,103 @@ const settings = {
   ],
 };
 
-function ProductSection() {
+function ProductSection(props: any) {
+  const { lang } = props;
+  const suffix = `${lang}.products`;
+  const [open, setOpen] = useToggle(false);
+  const { watch, control } = useFormContext();
   return (
-    <div className="container mx-auto">
-      <div>
-        <p className="text-sm text-center font-medium text-green-600">
-          WOODEN ACCESSORIES
-        </p>
-        <p className="text-xl uppercase text-neutral-800 font-medium text-center my-3">
-          FEATURED PRODUCTS
-        </p>
-        <p className="text-sm text-neutral-800 text-center font-light">
-          Visit our shop to see amazing creations from our designers.
-        </p>
+    <>
+      <div onClick={setOpen} className="container mx-auto">
+        <div>
+          <p className="text-sm text-center font-medium text-green-600">
+            {watch(`${suffix}.sub_title`)}
+          </p>
+          <p className="text-xl uppercase text-neutral-800 font-medium text-center my-3">
+            {watch(`${suffix}.title`)}
+          </p>
+          <p className="text-sm text-neutral-800 text-center font-light">
+            {watch(`${suffix}.desc`)}
+          </p>
 
-        <ul className="flex items-center justify-center mt-4 gap-x-6">
-          <li className="flex flex-col group">
-            <a
-              href="/best-sellers"
-              className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
-            >
-              best sellers
-            </a>
-            <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
-          </li>
-          <li className="flex flex-col group">
-            <a
-              href="/best-sellers"
-              className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
-            >
-              featured
-            </a>
-            <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
-          </li>
-          <li className="flex flex-col group">
-            <a
-              href="/best-sellers"
-              className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
-            >
-              sales
-            </a>
-            <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
-          </li>
-        </ul>
+          <ul className="flex items-center justify-center mt-4 gap-x-6">
+            <li className="flex flex-col group">
+              <a
+                href="/best-sellers"
+                className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
+              >
+                Bán chạy nhất
+              </a>
+              <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
+            </li>
+            <li className="flex flex-col group">
+              <a
+                href="/best-sellers"
+                className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
+              >
+                Mới ra mắt
+              </a>
+              <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
+            </li>
+            <li className="flex flex-col group">
+              <a
+                href="/best-sellers"
+                className="text-neutral-600 uppercase font-medium group-hove:text-neutral-900"
+              >
+                Giảm giá
+              </a>
+              <span className="inline-block h-[1px] transition-all duration-200 w-0 group-hover:w-full bg-green-600"></span>
+            </li>
+          </ul>
+        </div>
+        <div className="mt-6 overflow-hidden">
+          <Slider {...settings}>
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+            <ProductCard />
+          </Slider>
+        </div>
       </div>
-      <div className="mt-6 overflow-hidden">
-        <Slider {...settings}>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-        </Slider>
-      </div>
-    </div>
+      <Drawer
+        open={open}
+        onClose={setOpen}
+        placement="right"
+        title="Collection"
+      >
+        <div className="flex flex-col gap-3">
+          <Controller
+            control={control}
+            name={`${suffix}.sub_title`}
+            render={({ field: { onChange, value } }) => (
+              <Input value={value} onChange={onChange} />
+            )}
+          />
+          <Controller
+            control={control}
+            name={`${suffix}.title`}
+            render={({ field: { onChange, value } }) => (
+              <Input value={value} onChange={onChange} />
+            )}
+          />
+          <Controller
+            control={control}
+            name={`${suffix}.desc`}
+            render={({ field: { onChange, value } }) => (
+              <Input value={value} onChange={onChange} />
+            )}
+          />
+        </div>
+      </Drawer>
+    </>
   );
 }
 

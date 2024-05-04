@@ -1,4 +1,5 @@
 import { useCreateCollection } from "hooks/collection";
+import { enqueueSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import CollectionProvider from "./modules/CollectionProvider";
 
@@ -11,7 +12,16 @@ function AddCollection() {
       slug: data.name.replaceAll(" ", "-"),
     });
     if (res.code === 0 || res.code === 200) {
+      enqueueSnackbar({
+        message: "Thêm danh mục thành công",
+        variant: "success",
+      });
       navigate(`/collections/${res.data.id}`);
+    } else {
+      enqueueSnackbar({
+        message: "Thêm danh mục không thành công",
+        variant: "error",
+      });
     }
   };
 

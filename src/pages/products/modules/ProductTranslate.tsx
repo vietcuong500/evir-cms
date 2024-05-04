@@ -3,6 +3,7 @@ import TextArea from "antd/es/input/TextArea";
 import { IDataTranslate, IParamsTranslate } from "apis/translate";
 import { EditorTiny } from "components";
 import { useAddLanguage, useGetLanguage } from "hooks/translate";
+import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
@@ -13,11 +14,12 @@ function ProductTranslate(props: any) {
     defaultValues: {
       name: "",
       description: "",
+      summary: "",
     },
   });
   const [params, setParams] = useState<IParamsTranslate>({
     refId: product_id,
-    refTable: "product",
+    refTable: "Product",
   });
   const { isPending, mutateAsync } = useAddLanguage();
   const { isLoading, data } = useGetLanguage(params);
@@ -30,19 +32,26 @@ function ProductTranslate(props: any) {
       if (translateByLanguage) {
         const { column } = translateByLanguage;
         const name = column.find((el: any) => el.ref_column === "name").content;
+        const summary = column.find(
+          (el: any) => el.ref_column === "summary"
+        ).content;
+
         const description = column.find(
           (el: any) => el.ref_column === "description"
         ).content;
         reset({
           name,
           description,
+          summary,
         });
       }
     }
   }, [data]);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleTranslate = handleSubmit(async (data) => {
-    const { name, description } = data;
+    const { name, description, summary } = data;
     const body: IDataTranslate = {
       ref_id: params.refId,
       ref_table: params.refTable,
@@ -56,9 +65,19 @@ function ProductTranslate(props: any) {
           ref_column: "description",
           content: description,
         },
+        {
+          ref_column: "summary",
+          content: summary,
+        },
       ],
     };
     const res = await mutateAsync(body);
+    if (res) {
+      enqueueSnackbar({
+        message: "Thêm ngôn ngữ thành công",
+        variant: "success",
+      });
+    }
   });
   return (
     <Modal
@@ -101,19 +120,28 @@ function ProductTranslate(props: any) {
                 </div>
               )}
             />
-            <div>
-              <label className="mb-1 inline-block" htmlFor="desc">
-                Mô tả
-              </label>
-              <TextArea
-                autoSize={{
-                  minRows: 3,
-                  maxRows: 5,
-                }}
-                id="desc"
-                placeholder="Tên sản phẩm"
-              />
-            </div>
+            <Controller
+              control={control}
+              name="summary"
+              render={({ field: { onChange, value } }) => (
+                <div>
+                  <label className="mb-1 inline-block" htmlFor="desc">
+                    Mô tả
+                  </label>
+                  <TextArea
+                    value={value}
+                    onChange={onChange}
+                    autoSize={{
+                      minRows: 3,
+                      maxRows: 5,
+                    }}
+                    id="desc"
+                    placeholder="Tên sản phẩm"
+                  />
+                </div>
+              )}
+            />
+
             <div>
               <Controller
                 control={control}

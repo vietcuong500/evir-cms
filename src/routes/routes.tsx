@@ -31,6 +31,7 @@ import OrderDetail from "pages/orders/modules/OrderDetail";
 import ListingReview from "pages/reviews/modules/ListingReview";
 import ListingNavigate from "pages/themes/navigate/modules/ListingNavigate";
 import UpdatePage from "pages/themes/navigate/modules/UpdatePage";
+import CreatePage from "pages/themes/navigate/modules/CreatePage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -89,6 +90,7 @@ export const router = createBrowserRouter(
             <Route path="navigate">
               <Route path="" Component={ListingNavigate} />
               <Route path=":id" Component={UpdatePage} />
+              <Route path="add" Component={CreatePage} />
             </Route>
           </Route>
         </Route>

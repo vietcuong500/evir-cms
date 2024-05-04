@@ -24,7 +24,9 @@ function ListingReview() {
         </div> */}
       </div>
       <div className="box overflow-hidden">
-        <TableFilter />
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
 
         <Table
           pagination={{

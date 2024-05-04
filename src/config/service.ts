@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { enqueueSnackbar } from "notistack";
 
 const serviceConfig = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL,

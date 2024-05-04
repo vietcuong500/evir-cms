@@ -15,6 +15,13 @@ export const useUpdatePage = () => {
   });
 };
 
+export const useDeletePage = () => {
+  return useMutation({
+    mutationKey: ["delete-page"],
+    mutationFn: (id: any) => themeService.delete(id),
+  });
+};
+
 export const useDetailPage = (id: number) => {
   return useQuery({
     queryKey: ["detail-page", id],

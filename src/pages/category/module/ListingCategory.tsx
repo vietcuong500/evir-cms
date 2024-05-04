@@ -1,4 +1,5 @@
 import { Button, Input, Table } from "antd";
+import { TableFilter } from "components";
 import React, { useState } from "react";
 import { MdSearch } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,16 +27,9 @@ function ListingCategory() {
         </div>
       </div>
       <div className="box overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100">
-          <div className="flex gap-2">
-            <Input
-              prefix={<MdSearch className="text-xl text-neutral-500" />}
-              bordered={false}
-              placeholder="Nhập từ khóa cần tìm kiếm"
-            />
-            <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-          </div>
-        </div>
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
 
         <Table
           pagination={{

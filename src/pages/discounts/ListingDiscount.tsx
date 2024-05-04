@@ -1,9 +1,11 @@
 import { Button, Input, Popover, Radio, Table, Tag } from "antd";
 import { TableFilter } from "components";
+import moment from "moment";
 import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToggle } from "react-use";
+import { formatCurrency } from "utlis/common";
 import { DiscountType } from "./components";
 import { useListingDiscount } from "./hook";
 
@@ -14,6 +16,7 @@ function ListingDiscount() {
     page_size: 10,
     keyword: "",
   });
+  const navigate = useNavigate();
 
   const { isLoading, data, isSuccess } = useListingDiscount(params);
   return (
@@ -22,16 +25,18 @@ function ListingDiscount() {
       <div className="flex items-center justify-between mb-4">
         <p className="text-lg font-semibold text-neutral-700">Khuyến mãi</p>
         <div className="flex items-center gap-2">
-          <Button type="text" className="!bg-neutral-200">
-            Export
-          </Button>
-          <Button onClick={setOpen} type="primary">
+          <Button
+            onClick={() => navigate("add?type=discount-master")}
+            type="primary"
+          >
             Thêm khuyến mãi
           </Button>
         </div>
       </div>
       <div className="box overflow-hidden">
-        <TableFilter />
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
 
         <Table
           pagination={{
@@ -57,39 +62,73 @@ function ListingDiscount() {
               render: (value, record) => (
                 <div>
                   <Link
-                    to={record.id}
+                    to={`${record.id}`}
                     className="font-semibold text-neutral-700"
                   >
                     {value}
                   </Link>
-                  <p className="text-neutral-700">10% OFF</p>
+                  <p className="text-neutral-700 text-xs font-medium">
+                    {record.type === "FIXED"
+                      ? `${formatCurrency(record.value)}VND`
+                      : `${record.value}%`}{" "}
+                    OFF
+                  </p>
                 </div>
               ),
             },
+            // {
+            //   key: "status",
+            //   dataIndex: "status",
+            //   title: "Trạng thái",
+            //   render: (value, record) => {
+            //     const format = "DD/MM/YYYY";
+            //     const start_date = moment(record.start_date).format(format);
+            //     const end_date = moment(record.end_date).format(format);
+            //     const now_date = moment().format(format);
+            //     console.log(now_date, start_date, end_date)
+            //     if (moment(now_date).isBetween(start_date, end_date))
+            //       return <Tag color="success">Đang hoạt động</Tag>;
+            //     // if(moment().isBefore(start_date))
+            //     //   return <Tag></Tag>
+            //     return null;
+            //   },
+            // },
             {
-              key: "status",
-              dataIndex: "status",
-              title: "Trạng thái",
-              render: (value) => (
-                <Tag color="success" bordered={false}>
-                  {value}
-                </Tag>
+              key: "time",
+              dataIndex: "time",
+              title: "Thời gian hoạt động",
+              render: (value, record) => (
+                <span>
+                  {moment(record.start_date).format("DD/MM/YYYY")}
+                  {" - "}
+                  {moment(record.end_date).format("DD/MM/YYYY")}
+                </span>
               ),
             },
-            {
-              key: "method",
-              dataIndex: "method",
-              title: "Method",
-            },
+            // {
+            //   key: "method",
+            //   dataIndex: "method",
+            //   title: "Method",
+            // },
             {
               key: "type",
               dataIndex: "type",
               title: "Loại giảm giá",
+              render: (value) => (
+                <span>
+                  {value === "FIXED"
+                    ? "Giả giá trực tiếp"
+                    : "Giả giá theo phần trăm"}
+                </span>
+              ),
             },
             {
               key: "used",
               dataIndex: "used",
-              title: "Đã sử dụng",
+              title: "Sản phẩm áp dụng",
+              render: (value, record) => (
+                <span>{record.products.length} sản phẩm</span>
+              ),
             },
           ]}
         />

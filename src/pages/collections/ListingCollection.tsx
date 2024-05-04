@@ -1,8 +1,10 @@
 import { Button, Input, Popover, Radio, Table, Tag, Typography } from "antd";
+import { TableFilter } from "components";
 import { useListingCollection } from "hooks/collection";
 import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useDebounce } from "react-use";
 
 function ListingCollection() {
   const [params, setParams] = useState({
@@ -18,59 +20,21 @@ function ListingCollection() {
           Danh mục sản phẩm
         </p>
         <div className="flex items-center gap-2">
-          <Button type="text" className="!bg-neutral-200">
+          {/* <Button type="text" className="!bg-neutral-200">
             Import
           </Button>
           <Button type="text" className="!bg-neutral-200">
             Export
-          </Button>
+          </Button> */}
           <Link to="add">
             <Button type="primary">Thêm danh mục</Button>
           </Link>
         </div>
       </div>
       <div className="box overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100">
-          <div className="flex gap-2">
-            <Input
-              prefix={<MdSearch className="text-xl text-neutral-500" />}
-              bordered={false}
-              placeholder="Nhập từ khóa cần tìm kiếm"
-            />
-            <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-            <Popover
-              trigger="click"
-              placement="bottomLeft"
-              content={
-                <div className="px-5 py-3">
-                  <p className="font-semibold text-neutral-800 mb-2">
-                    Sắp xếp theo
-                  </p>
-                  <Radio.Group>
-                    <div className="flex flex-col">
-                      <Radio name="order" value="id">
-                        Mã đơn hàng
-                      </Radio>
-                      <Radio name="order" value="customer">
-                        Khách hàng
-                      </Radio>
-                      <Radio name="order" value="date">
-                        Thời gian
-                      </Radio>
-                      <Radio name="order" value="total">
-                        Đơn gía
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </div>
-              }
-            >
-              <Button
-                icon={<MdOutlineSort className="text-xl text-neutral-500" />}
-              />
-            </Popover>
-          </div>
-        </div>
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
         <Table
           pagination={{
             total: data ? data.total : 0,
@@ -114,8 +78,8 @@ function ListingCollection() {
               ),
             },
             {
-              key: "items",
-              dataIndex: "items",
+              key: "num_of_products",
+              dataIndex: "num_of_products",
               title: "Số lượng sản phẩm",
               render: (value) => <p>{value} sản phẩm</p>,
             },

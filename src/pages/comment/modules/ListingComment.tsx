@@ -1,8 +1,9 @@
-import { Button, Table, Tag } from "antd";
+import { Button, Table, Tag, Tooltip } from "antd";
 import { TableFilter } from "components";
+import { enqueueSnackbar } from "notistack";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useListingComment } from "../hook";
+import { useListingComment, useDeleteComment } from "../hook";
 
 function ListingComment() {
   const [params, setParams] = useState({
@@ -11,15 +12,16 @@ function ListingComment() {
     keyword: "",
   });
 
-  const { isLoading, data, isSuccess } = useListingComment(params);
+  const { isLoading, data, isSuccess, refetch } = useListingComment(params);
+  const { mutateAsync } = useDeleteComment();
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
         <p className="text-lg font-semibold text-neutral-700">Bình luận</p>
         <div className="flex items-center gap-2">
-          <Link to="add">
+          {/* <Link to="add">
             <Button type="primary">Thêm bình luận</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="box overflow-hidden">
@@ -78,6 +80,37 @@ function ListingComment() {
               dataIndex: "post",
               title: "Bài viết",
               render: (value) => <span>{value.title}</span>,
+            },
+            {
+              key: "actions",
+              dataIndex: "",
+              title: "",
+              render: (value, record) => (
+                <div>
+                  <Tooltip title="Xóa bình luận">
+                    <Button
+                      onClick={async () => {
+                        console.log(record)
+                        const res: any = await mutateAsync(record.id);
+                        if (res.code === 200 || res.code === 0) {
+                          enqueueSnackbar({
+                            message: "Xóa bình luận thành công",
+                            variant: "success",
+                          });
+                          refetch();
+                        } else {
+                          enqueueSnackbar({
+                            message: "Xóa bình luận không thành công",
+                            variant: "error",
+                          });
+                        }
+                      }}
+                    >
+                      Xóa
+                    </Button>
+                  </Tooltip>
+                </div>
+              ),
             },
           ]}
         />

@@ -4,7 +4,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { useToggle } from "react-use";
 
 function OrderCustomer(props: any) {
-  const { name, address, phone, email } = props;
+  const { name, address, phone, email, fullName } = props;
   const [isNote, setIsNote] = useToggle(false);
 
   return (
@@ -20,7 +20,7 @@ function OrderCustomer(props: any) {
       </div>
       <div className="px-5 py-3 flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <p>Nguyễn Việt Cường</p>
+          <p>{fullName}</p>
           <Button type="link">Lịch sử mua hàng</Button>
         </div>
         <div>

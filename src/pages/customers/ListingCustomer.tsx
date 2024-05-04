@@ -16,21 +16,23 @@ function ListingCustomer() {
           Danh sách khách hàng
         </p>
         <div className="flex items-center gap-2">
-          <Button type="text" className="!bg-neutral-200">
+          {/* <Button type="text" className="!bg-neutral-200">
             Import
           </Button>
           <Button type="text" className="!bg-neutral-200">
             Export
-          </Button>
-          <Link to="add">
+          </Button> */}
+          {/* <Link to="add">
             <Button type="primary">Thêm khách hàng</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
       <div className="box overflow-hidden">
-        <TableFilter />
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
         <div className="px-5 py-3">
-          <Filter
+          {/* <Filter
             values={params}
             onChange={setParams}
             filters={[
@@ -49,7 +51,7 @@ function ListingCustomer() {
                 ],
               },
             ]}
-          />
+          /> */}
         </div>
         <Table
           pagination={{
@@ -72,7 +74,10 @@ function ListingCustomer() {
               key: "id",
               dataIndex: "id",
               title: "Mã khách hàng",
-              render: (value) => <Link to="detail">#{value}</Link>,
+              // render: (value, record) => <Link state={{
+              //   item: record
+              // }} to="detail">#{value}</Link>,
+              render: (value) => <span>#{value}</span>,
             },
             {
               key: "username",

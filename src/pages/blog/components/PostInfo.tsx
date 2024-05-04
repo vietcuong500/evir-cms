@@ -57,12 +57,13 @@ function PostInfo() {
             name="content"
             render={({ field: { onChange, value } }) => (
               <Editor
+              apiKey='kzn0b0a0miy3msrg7703lyx5bm7951rdumu25zk5wmzf9h7r'
                 init={{
                   height: 600,
                   plugins:
-                    "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks insertfile wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss",
+                    "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks insertfile wordcount ",
                   toolbar:
-                    "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image insertfile media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                    "blocks fontfamily fontsize | bold italic underline strikethrough | link image insertfile media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
                   tinycomments_mode: "embedded",
                   automatic_uploads: true,
                   //   convert_urls: false,

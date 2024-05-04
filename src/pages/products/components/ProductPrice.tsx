@@ -29,14 +29,14 @@ function ProductPrice() {
               </div>
             )}
           />
-          <div>
+          {/* <div>
             <label className="mb-1 inline-block" htmlFor="price-regular">
               Giá bán
             </label>
             <Input id="price-regular" placeholder="Tên sản phẩm" />
-          </div>
+          </div> */}
         </div>
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4">
           <Checkbox id="inventory" />
           <label htmlFor="inventory">Tính thuế sản phẩm</label>
         </div>
@@ -76,7 +76,7 @@ function ProductPrice() {
               placeholder="Tên sản phẩm"
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

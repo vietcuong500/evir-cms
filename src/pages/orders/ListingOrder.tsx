@@ -37,6 +37,7 @@ function ListingOrder() {
     page_size: 10,
     keyword: "",
     filter_status: "NEW_ORDER",
+    sort: "created_at"
   });
   const { isLoading, data, refetch, isPlaceholderData } =
     useListingOrder(params);
@@ -48,18 +49,17 @@ function ListingOrder() {
           Danh sách đơn hàng
         </p>
         <div className="flex items-center gap-2">
-          <Button type="text" className="!bg-neutral-200">
-            Export
-          </Button>
-          <Link to="add">
+          {/* <Link to="add">
             <Button type="primary">Thêm đơn hàng</Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
 
       <div className="box overflow-hidden">
-        <TableFilter />
-        <div className="px-5 py-3">
+        <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
+        {/* <div className="px-5 py-3">
           <Filter
             values={params}
             onChange={setParams}
@@ -80,12 +80,14 @@ function ListingOrder() {
               },
             ]}
           />
-        </div>
+        </div> */}
         <div className="px-5">
           <Tabs
             className=""
             defaultActiveKey="NEW_ORDER"
-            onChange={(value) => setParams({ ...params, filter_status: value, page: 1 })}
+            onChange={(value) =>
+              setParams({ ...params, filter_status: value, page: 1 })
+            }
             items={[
               {
                 key: "NEW_ORDER",
@@ -121,6 +123,7 @@ function ListingOrder() {
                 page,
               });
             },
+            current: params.page
           }}
           size="small"
           dataSource={

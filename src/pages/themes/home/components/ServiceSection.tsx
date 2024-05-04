@@ -5,7 +5,9 @@ import React from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import ServiceCard from "./ServiceCard";
 
-const ServiceTop = () => {
+const ServiceTop = (props: any) => {
+  const { lang } = props;
+  const suffix = `${lang}.service`;
   const { control, watch } = useFormContext();
 
   return (
@@ -14,7 +16,7 @@ const ServiceTop = () => {
         <div>
           <Controller
             control={control}
-            name="service.sub_title"
+            name={`${suffix}.sub_title`}
             render={({ field: { onChange, value } }) => (
               <Input
                 value={value}
@@ -25,7 +27,7 @@ const ServiceTop = () => {
           />
           <Controller
             control={control}
-            name="service.title"
+            name={`${suffix}.title`}
             render={({ field: { onChange, value } }) => (
               <Input
                 value={value}
@@ -36,7 +38,7 @@ const ServiceTop = () => {
           />
           <Controller
             control={control}
-            name="service.desc"
+            name={`${suffix}.desc`}
             render={({ field: { onChange, value } }) => (
               <TextArea
                 value={value}
@@ -54,24 +56,25 @@ const ServiceTop = () => {
     >
       <div className="ring-1 ring-transparent hover:ring-lime-500">
         <p className="text-sm text-center font-medium text-green-600">
-          {watch("service.sub_title")}
+          {watch(`${suffix}.sub_title`)}
         </p>
         <p className="text-xl uppercase text-neutral-800 font-medium text-center my-3">
-          {watch("service.title")}
+          {watch(`${suffix}.title`)}
         </p>
         <p className="text-sm text-neutral-800 text-center font-light">
-          {watch("service.desc")}
+          {watch(`${suffix}.desc`)}
         </p>
       </div>
     </Popover>
   );
 };
 
-const ServiceItems = () => {
+const ServiceItems = (props: any) => {
   const { control, watch } = useFormContext();
+  const suffix = `${props.lang}.service.items`;
   const { fields } = useFieldArray({
     control,
-    name: "service.items",
+    name: suffix,
   });
   return (
     <div className="mt-24 relative grid grid-cols-2 xl:grid-cols-4 gap-8">
@@ -85,7 +88,7 @@ const ServiceItems = () => {
               <div className="w-80 px-5 py-3 flex flex-col gap-4">
                 <Controller
                   control={control}
-                  name={`service.items[${id}].icon`}
+                  name={`${suffix}[${id}].icon`}
                   render={({ field: { onChange, value } }) => (
                     <Input
                       type="file"
@@ -100,7 +103,7 @@ const ServiceItems = () => {
                 />
                 <Controller
                   control={control}
-                  name={`service.items[${id}].title`}
+                  name={`${suffix}[${id}].title`}
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
@@ -111,7 +114,7 @@ const ServiceItems = () => {
                 />
                 <Controller
                   control={control}
-                  name={`service.items[${id}].desc`}
+                  name={`${suffix}[${id}].desc`}
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
@@ -122,7 +125,7 @@ const ServiceItems = () => {
                 />
                 <Controller
                   control={control}
-                  name={`service.items[${id}].action`}
+                  name={`${suffix}[${id}].action`}
                   render={({ field: { onChange, value } }) => (
                     <Input
                       value={value}
@@ -136,19 +139,19 @@ const ServiceItems = () => {
           >
             <div className="relative hover:shadow-md ring-1 ring-transparent hover:ring-lime-500">
               <div className="mx-auto w-[100px] h-[100px] rounded-full bg-neutral-100 p-5 absolute left-[50%] -translate-x-[50%] -top-[50px]">
-                {watch(`service.items[${id}].icon`) ? (
+                {watch(`${suffix}[${id}].icon`) ? (
                   <img
-                    src={watch(`service.items[${id}].icon`)}
+                    src={watch(`${suffix}[${id}].icon`)}
                     className="w-full h-full object-cover object-center"
                   />
                 ) : null}
               </div>
               <div className="text-center p-5 pt-16 pb-8 border border-neutral-200">
                 <p className="text-lg mb-2">
-                  {watch(`service.items[${id}].title`)}
+                  {watch(`${suffix}[${id}].title`)}
                 </p>
                 <p className="text-sm text-neutral-800">
-                  {watch(`service.items[${id}].desc`)}
+                  {watch(`${suffix}[${id}].desc`)}
                 </p>
               </div>
               <button className="mx-auto -mt-[18px] h-9 w-36 bg-green-600 rounded text-white uppercase">
@@ -162,13 +165,14 @@ const ServiceItems = () => {
   );
 };
 
-function ServiceSection() {
+function ServiceSection(props: any) {
+  const { lang } = props;
   const { control, watch } = useFormContext();
 
   return (
     <div className="container mx-auto">
-      <ServiceTop />
-      <ServiceItems />
+      <ServiceTop lang={lang} />
+      <ServiceItems lang={lang} />
     </div>
   );
 }

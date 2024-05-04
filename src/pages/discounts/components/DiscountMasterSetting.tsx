@@ -6,7 +6,8 @@ import { useParams } from "react-router-dom";
 import { useToggle } from "react-use";
 import { useListingProductDiscount, useRemoveProductToDiscount } from "../hook";
 
-function DiscountMasterSetting() {
+function DiscountMasterSetting(props: any) {
+  const { onDeleteProduct } = props;
   const { id } = useParams();
   const { control, setValue } = useFormContext();
   const [open, setOpen] = useToggle(false);
@@ -32,8 +33,10 @@ function DiscountMasterSetting() {
                 onChange={onChange}
                 className="!flex !w-[23rem]"
               >
-                <Radio.Button value="FIXED">Fixed amount</Radio.Button>
-                <Radio.Button value="PERCENTAGE">Percentage</Radio.Button>
+                <Radio.Button value="FIXED">Giảm giá trực tiếp</Radio.Button>
+                <Radio.Button value="PERCENTAGE">
+                  Giảm gía theo phần trăm
+                </Radio.Button>
               </Radio.Group>
             )}
           />
@@ -65,10 +68,10 @@ function DiscountMasterSetting() {
             toggle={setOpen}
           />
           <p className="font-semibold text-neutral-700 mb-2">Áp dụng</p>
-          <Radio.Group className="!flex !flex-col">
+          {/* <Radio.Group className="!flex !flex-col">
             <Radio value="collection">Bộ sưu tập</Radio>
             <Radio value="product">Sản phẩm</Radio>
-          </Radio.Group>
+          </Radio.Group> */}
 
           <div className="mt-2 flex gap-4">
             <Input placeholder="Nhập từ khóa tìm kiếm" />
@@ -78,7 +81,10 @@ function DiscountMasterSetting() {
       </div>
       <Table
         //loading={isLoading}
-        dataSource={products}
+        dataSource={products.map((el: any) => ({
+          ...el,
+          key: el.id,
+        }))}
         columns={[
           {
             dataIndex: "images",

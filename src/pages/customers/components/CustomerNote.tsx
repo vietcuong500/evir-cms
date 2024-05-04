@@ -4,7 +4,8 @@ import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 import { useToggle } from "react-use";
 
-function CustomerNote() {
+function CustomerNote(props: any) {
+  const {data} = props;
   const [isNote, setIsNote] = useToggle(false);
   return (
     <div className="box">

@@ -8,11 +8,12 @@ import {
   Tag,
   Typography,
 } from "antd";
-import { Filter } from "components";
+import { Filter, TableFilter } from "components";
 import { useListingProduct } from "hooks/product";
 import React, { useState } from "react";
 import { MdOutlineSort, MdSearch } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
+import { useDebounce } from "react-use";
 
 function ListingProduct() {
   const navigation = useNavigate;
@@ -27,61 +28,17 @@ function ListingProduct() {
           Danh sách sản phẩm
         </p>
         <div className="flex items-center gap-2">
-          <Button type="text" className="!bg-neutral-200">
-            Import
-          </Button>
-          <Button type="text" className="!bg-neutral-200">
-            Export
-          </Button>
           <Link to="add">
             <Button type="primary">Thêm sản phẩm</Button>
           </Link>
         </div>
       </div>
       <div className="box overflow-hidden">
-        <div className="px-5 py-3 border-b border-neutral-100">
-          <div className="flex gap-2">
-            <Input
-              prefix={<MdSearch className="text-xl text-neutral-500" />}
-              bordered={false}
-              placeholder="Nhập từ khóa cần tìm kiếm"
-            />
-            <Button icon={<MdSearch className="text-xl text-neutral-500" />} />
-            <Popover
-              trigger="click"
-              placement="bottomLeft"
-              content={
-                <div className="px-5 py-3">
-                  <p className="font-semibold text-neutral-800 mb-2">
-                    Sắp xếp theo
-                  </p>
-                  <Radio.Group>
-                    <div className="flex flex-col">
-                      <Radio name="order" value="id">
-                        Mã đơn hàng
-                      </Radio>
-                      <Radio name="order" value="customer">
-                        Khách hàng
-                      </Radio>
-                      <Radio name="order" value="date">
-                        Thời gian
-                      </Radio>
-                      <Radio name="order" value="total">
-                        Đơn gía
-                      </Radio>
-                    </div>
-                  </Radio.Group>
-                </div>
-              }
-            >
-              <Button
-                icon={<MdOutlineSort className="text-xl text-neutral-500" />}
-              />
-            </Popover>
-          </div>
-        </div>
+      <TableFilter
+          onChange={(val: string) => setParams({ ...params, keyword: val, page: 1 })}
+        />
         <div className="px-5 py-3">
-          <Filter
+          {/* <Filter
             values={params}
             onChange={setParams}
             filters={[
@@ -100,7 +57,7 @@ function ListingProduct() {
                 ],
               },
             ]}
-          />
+          /> */}
         </div>
         <Table
           pagination={{
@@ -161,9 +118,12 @@ function ListingProduct() {
               dataIndex: "status",
               title: "Trạng thái",
               render: (value) => (
-                <Tag bordered={false} color="success">
-                  <span className="mr-2 w-2 h-2 rounded-full bg-green-500 inline-block"></span>
-                  Hoạt động
+                <Tag
+                  bordered={false}
+                  color={value === "ACTIVE" ? "success" : "warning"}
+                >
+                  <span className="mr-2 w-2 h-2 rounded-full inline-block"></span>
+                  {value === "ACTIVE" ? "Xuất bản" : "Bản nháp"}
                 </Tag>
               ),
             },

@@ -135,8 +135,10 @@ const FooterCol = ({ name }: { name: string }) => {
   );
 };
 
-function FooterHome() {
+function FooterHome(props: any) {
+  const {lang} = props;
   const { control, watch } = useFormContext();
+  const suffix = `${lang}.footer`
   return (
     <div className="py-8">
       <div className="container mx-auto flex flex-col xl:flex-row gap-6">
@@ -169,9 +171,9 @@ function FooterHome() {
           </div>
         </div>
         <div className="w-full xl:w-1/2 flex gap-6">
-          <FooterCol name="footer.col1" />
-          <FooterCol name="footer.col2" />
-          <FooterCol name="footer.col3" />
+          <FooterCol name={`${suffix}.col1`} />
+          <FooterCol name={`${suffix}.col2`} />
+          <FooterCol name={`${suffix}.col3`} />
         </div>
       </div>
     </div>

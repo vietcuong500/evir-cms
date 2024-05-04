@@ -21,4 +21,7 @@ export const themeService = {
       })
       .then((res) => res.data);
   },
+  delete: (id: number) => {
+    return serviceConfig.delete(`${url.base}/${id}`).then(res => res.data)
+  }
 };

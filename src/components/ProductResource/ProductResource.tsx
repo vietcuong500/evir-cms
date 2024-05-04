@@ -1,6 +1,7 @@
 import { Button, Input, Modal, Table } from "antd";
 import { useListingProduct } from "hooks/product";
 import React, { useEffect, useState } from "react";
+import { useDebounce } from "react-use";
 
 function ProductResource(props: any) {
   const { open, toggle, onChange, defaultValues } = props;
@@ -17,6 +18,16 @@ function ProductResource(props: any) {
     setRowKeys(defaultValues);
   }, [defaultValues]);
 
+  const [seach, setSearch] = useState("");
+
+  useDebounce(
+    () => {
+      setParams({ ...params, keyword: seach, page: 1 });
+    },
+    1000,
+    [seach]
+  );
+
   return (
     <Modal open={open} onCancel={toggle} onOk={toggle} footer={false}>
       <div className="bg-neutral-100 rounded">
@@ -24,10 +35,24 @@ function ProductResource(props: any) {
       </div>
       <div>
         <div className="px-5 py-3 flex items-center justify-between gap-4">
-          <Input placeholder="Nhập từ khóa tìm kiếm" />
+          <Input
+            value={seach}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Nhập từ khóa tìm kiếm"
+          />
           <Button type="primary">Tìm kiếm</Button>
         </div>
         <Table
+          pagination={{
+            total: data ? data.total : 0,
+            pageSize: 10,
+            onChange(page) {
+              setParams({
+                ...params,
+                page,
+              });
+            },
+          }}
           loading={isLoading}
           style={{
             width: "60vw",
@@ -68,7 +93,6 @@ function ProductResource(props: any) {
               dataIndex: "price",
             },
           ]}
-          pagination={false}
         />
       </div>
       <div className="flex items-center justify-end gap-4 px-5 py-3">

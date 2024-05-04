@@ -48,14 +48,6 @@ function ProductProvider(props: IProductProviderProps) {
           productId ? (
             <div className="mb-4 flex justify-end">
               <Button onClick={setLanguage}>Chuyển đổi ngôn ngữ</Button>
-              {/* <Select
-          onChange={(value) => setLanguage(value)}
-          value={language}
-          options={[
-            { label: "Tiếng Việt", value: "VI" },
-            { label: "English", value: "EN" },
-          ]}
-        /> */}
             </div>
           ) : null
         }
@@ -70,7 +62,7 @@ function ProductProvider(props: IProductProviderProps) {
           <>
             <ProductThumbnail />
             <ProductMedia />
-            <ProductStatus />
+          <ProductStatus />
             <ProductCollection />
           </>
         }

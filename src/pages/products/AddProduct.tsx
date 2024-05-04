@@ -1,4 +1,5 @@
 import { useCreateProduct } from "hooks/product";
+import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 import ProductProvider from "./modules/ProductProvider";
 export interface ProductCreateModel {
@@ -12,9 +13,11 @@ export interface ProductCreateModel {
   stock: number | null;
   category_id: number | null;
   lst_image: string[];
+  status: string;
 }
 
 function AddProduct() {
+  const { enqueueSnackbar } = useSnackbar();
   const { mutateAsync, isPending } = useCreateProduct();
   const navigate = useNavigate();
   const handleSubmit = async (data: any) => {
@@ -22,8 +25,18 @@ function AddProduct() {
       ...data,
       slug: data.name.replaceAll(" ", "-"),
     });
+
     if (res.code === 0 || res.code === 200) {
+      enqueueSnackbar({
+        message: "Thêm sản phẩm thành công",
+        variant: "success",
+      });
       navigate(`/products/${res.data.id}`);
+    } else {
+      enqueueSnackbar({
+        message: "Thêm sản phẩm không thành công",
+        variant: "error",
+      });
     }
   };
 
@@ -43,6 +56,7 @@ function AddProduct() {
         stock: 89,
         category_id: null,
         lst_image: [],
+        status: "ACTIVE"
       }}
     />
   );

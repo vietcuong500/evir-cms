@@ -1,4 +1,5 @@
-import { QueryClient } from "@tanstack/react-query";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
+import { enqueueSnackbar } from "notistack";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -8,6 +9,7 @@ const queryClient = new QueryClient({
       refetchOnReconnect: false,
     },
   },
+  
 });
 
 export default queryClient;

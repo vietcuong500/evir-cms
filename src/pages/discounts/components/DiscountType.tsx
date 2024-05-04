@@ -17,7 +17,7 @@ function DiscountType(props: any) {
         >
           <p className="text-neutral-700 font-semibold">Giảm giá tự động</p>
         </div>
-        <div className="px-5 py-3 hover:bg-neutral-100">
+        {/* <div className="px-5 py-3 hover:bg-neutral-100">
           <p className="text-neutral-700 font-semibold">Giảm gía sản phẩm</p>
           <p className="text-neutral-800">Giảm giá sản phẩm sử dụng code</p>
         </div>
@@ -40,7 +40,7 @@ function DiscountType(props: any) {
           <p className="text-neutral-800">
             Mua sản phẩm X được tặng sản phẩm Y
           </p>
-        </div>
+        </div> */}
       </div>
     </Modal>
   );

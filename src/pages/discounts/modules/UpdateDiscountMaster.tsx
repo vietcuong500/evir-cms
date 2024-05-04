@@ -1,6 +1,9 @@
 import { Spin } from "antd";
+import dayjs from "dayjs";
 import moment from "moment";
+import { enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useAddMultiProductDiscount,
@@ -12,28 +15,51 @@ import {
 import DiscountMasterProvider from "./DiscountMasterProvider";
 
 function UpdateDiscountMaster() {
+  const methods = useForm({
+    mode: "all",
+    defaultValues: {
+      name: "Khuyen mai",
+      type: "FIXED",
+      start_date: "2023/10/22 00:00:00",
+      end_date: "2023/11/22 00:00:00",
+      value: 10,
+      products: [],
+    },
+  });
   const navigate = useNavigate();
 
   const [productsInit, setProductsInit] = useState([]);
 
   const { id } = useParams();
-  const { mutate: updateDiscount, isPending: loadingUpdate } =
+  const { mutateAsync: updateDiscount, isPending: loadingUpdate } =
     useUpdateDiscount();
   const { isLoading, data } = useDetailDiscount(Number(id));
   const { mutateAsync: handleAddMulti } = useAddMultiProductDiscount();
   const { mutateAsync: deleteDiscount } = useDeleteDiscount();
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = methods.handleSubmit(async (data: any) => {
     const { name, start_date, end_date, type, value, products } = data;
-    // updateDiscount({
-    //   id: Number(id),
-    //   data: {
-    //     name,
-    //     type,
-    //     value,
-    //     start_date: moment(start_date).format("YYYY/MM/DD HH:mm:ss"),
-    //     end_date: moment(end_date).format("YYYY/MM/DD HH:mm:ss"),
-    //   },
-    // });
+    const format = "YYYY/MM/DD hh:mm:ss";
+    const res: any = await updateDiscount({
+      id: Number(id),
+      data: {
+        name,
+        type,
+        value,
+        start_date: dayjs(start_date).format(format),
+        end_date: dayjs(end_date).format(format),
+      },
+    });
+    if (res.code === 200) {
+      enqueueSnackbar({
+        message: "Chỉnh sửa khuyến mãi thành công",
+        variant: "success",
+      });
+    } else {
+      enqueueSnackbar({
+        message: "Chỉnh sửa khuyến mãi thất bại",
+        variant: "error",
+      });
+    }
     const product_add = products
       .filter((el: any) => el.isNew)
       .map((el: any) => el.id);
@@ -47,7 +73,8 @@ function UpdateDiscountMaster() {
       if (res) {
         res.map((el: any) => {
           if (el.code === 200) {
-            setProductsInit(
+            methods.setValue(
+              "products",
               products.map((product: any) =>
                 product.id === el.data.product_id
                   ? { ...product, isNew: false }
@@ -58,9 +85,7 @@ function UpdateDiscountMaster() {
         });
       }
     }
-
-    // console.log(res);
-  };
+  });
   const handleDelete = async () => {
     const res = await deleteDiscount(Number(id));
     if (res.code === 200 || res.code === 0) {
@@ -70,30 +95,20 @@ function UpdateDiscountMaster() {
 
   useEffect(() => {
     if (data) {
-      setProductsInit(
-        data.data.products.map((el: any) => ({
-          ...el,
-          key: el.id,
-          isNew: false,
-        }))
-      );
+      methods.reset(data.data);
     }
   }, [data]);
 
   if (isLoading) return <Spin />;
 
   return (
-    <DiscountMasterProvider
-      handleDelete={handleDelete}
-      handleSubmit={handleSubmit}
-      loadingSubmit={loadingUpdate}
-      defaultValues={{
-        ...data.data,
-        product_ids: productsInit.map((el: any) => el.id),
-        product_ids_init: productsInit.map((el: any) => el.id),
-        products: productsInit,
-      }}
-    />
+    <FormProvider {...methods}>
+      <DiscountMasterProvider
+        onSubmit={handleSubmit}
+        loadingSubmit={loadingUpdate}
+        handleDelete={handleDelete}
+      />
+    </FormProvider>
   );
 }
 

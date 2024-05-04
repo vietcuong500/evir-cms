@@ -38,6 +38,7 @@ function OrderDetail() {
               email={data.data.email}
               phone={data.data.phone}
               address={data.data.address}
+              fullName={data.data?.full_name}
             />
           </div>
         </div>

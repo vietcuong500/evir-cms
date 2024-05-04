@@ -2,7 +2,8 @@ import { Button } from "antd";
 import React from "react";
 import { FiEdit2 } from "react-icons/fi";
 
-function CustomerInfo() {
+function CustomerInfo(props: any) {
+  const {data} = props;
   return (
     <div className="box">
       <div className="box-title flex items-center justify-between">
@@ -15,9 +16,9 @@ function CustomerInfo() {
             Thông tin khách hàng
           </p>
           <div>
-            <p>Nguyễn Việt Cường</p>
-            <p className="text-blue-500">vietcuong500@gmail.com</p>
-            <p className="text-neutral-600">0389886781</p>
+            <p>{data?.username}</p>
+            <p className="text-blue-500">{data?.email}</p>
+            <p className="text-neutral-600">{data?.phone_number}</p>
           </div>
         </div>
         <div>

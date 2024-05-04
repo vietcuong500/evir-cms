@@ -28,11 +28,11 @@ const nav: MenuProps["items"] = [
     icon: <MdHome />,
     label: "Trang chủ",
   },
-  {
-    key: "analytics",
-    label: "Báo cáo",
-    icon: <MdAnalytics />,
-  },
+  // {
+  //   key: "analytics",
+  //   label: "Báo cáo",
+  //   icon: <MdAnalytics />,
+  // },
   {
     key: "orders",
     label: <Link to="orders">Đơn hàng</Link>,
@@ -52,10 +52,10 @@ const nav: MenuProps["items"] = [
         key: "collections",
         label: <Link to="collections">Danh mục</Link>,
       },
-      {
-        key: "inventory",
-        label: <Link to="inventory">Hàng tồn kho</Link>,
-      },
+      // {
+      //   key: "inventory",
+      //   label: <Link to="inventory">Hàng tồn kho</Link>,
+      // },
       {
         key: "review",
         label: <Link to="review">Đánh giá</Link>,
