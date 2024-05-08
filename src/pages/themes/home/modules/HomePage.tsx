@@ -214,7 +214,7 @@ function HomePage() {
           ],
         },
         top: {
-          shipping: "Miễn phí ship cho đơn hàng từ 300K",
+          shipping: "Kiến tạo phong cách sống",
           fb_link: "#",
           tw_link: "#",
           ins_link: "#",
@@ -254,7 +254,7 @@ function HomePage() {
           },
         ],
         top: {
-          shipping: "Miễn phí ship cho đơn hàng từ 300K",
+          shipping: "Kiến tạo phong cách sống",
           fb_link: "#",
           tw_link: "#",
           ins_link: "#",

@@ -7,7 +7,7 @@ import {
   MdAccountCircle,
   MdFolderSpecial,
   MdOutlineSettings,
-  MdAnalytics,
+  MdForward,
 } from "react-icons/md";
 import { Button, MenuProps } from "antd";
 import { Breadcrumb, Layout, Menu, theme } from "antd";
@@ -25,8 +25,9 @@ const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
 const nav: MenuProps["items"] = [
   {
     key: "home",
-    icon: <MdHome />,
-    label: "Trang chủ",
+    icon: <MdForward />,
+    label: <a href="https://www.eviromet.com/" target="_blank">Xem Website</a>,
+    // label: "Trang chủ",
   },
   // {
   //   key: "analytics",

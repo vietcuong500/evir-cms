@@ -6,7 +6,7 @@ function EditorTiny(props: any) {
   const { value, onChange } = props;
   return (
     <Editor
-    apiKey='kzn0b0a0miy3msrg7703lyx5bm7951rdumu25zk5wmzf9h7r'
+    apiKey='d8peyfrzl0nn332tp3jypuckuw35vjj9dauzg3l1lsxy8rmg'
       init={{
         height: 600,
         plugins:

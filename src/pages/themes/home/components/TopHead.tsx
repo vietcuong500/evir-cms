@@ -17,9 +17,6 @@ function TopHead(props: any) {
         className="bg-emerald-600 text-white container mx-auto h-10 text-xs flex items-center justify-between"
       >
         <div className="h-full flex items-center">
-          <p className="h-full text-white leading-10 px-4 border-l border-neutral-100/50 cursor-pointer">
-            VIETNAM
-          </p>
           <p className="h-full text-white leading-10 px-4 border-l border-neutral-100/50">
            {watch(`${suffix}.shipping`)}
           </p>
@@ -30,24 +27,27 @@ function TopHead(props: any) {
             <li>
               <FaFacebookF />
             </li>
-            <li>
+            {/* <li>
               <FaTwitter />
-            </li>
+            </li> */}
             <li>
               <FaInstagram />
             </li>
-            <li>
+            {/* <li>
               <FaYoutube />
-            </li>
+            </li> */}
           </ul>
           <p className="h-full text-white uppercase leading-10 px-4 border-r border-neutral-100/50 cursor-pointer">
             newsletter
           </p>
-          <p className="h-full text-white uppercase leading-10 px-4 border-r border-neutral-100/50 cursor-pointer">
+          {/* <p className="h-full text-white uppercase leading-10 px-4 border-r border-neutral-100/50 cursor-pointer">
             Liên hệ
-          </p>
+          </p> */}
           <p className="h-full text-white uppercase leading-10 px-4 border-r border-neutral-100/50 cursor-pointer">
             faqs
+          </p>
+          <p className="h-full text-white leading-10 px-4 border-l border-neutral-100/50 cursor-pointer">
+            VIETNAM
           </p>
         </div>
       </div>
