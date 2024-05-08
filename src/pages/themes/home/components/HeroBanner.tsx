@@ -271,7 +271,7 @@ const Hero3 = (props: any) => {
         </div>
       }
     >
-      <div className="w-2/3 relative h-full bg-neutral-300 p-5">
+      <div className="w-full relative h-full bg-neutral-300 p-5">
         <div className="w-full h-full absolute left-0 top-0">
           <img
             className="w-full h-full object-fill object-center"
@@ -344,7 +344,7 @@ function HeroBanner(props: any) {
           <Hero2 lang={lang} />
           <div className="flex items-stretch w-full h-1/2 gap-8">
             <Hero3 lang={lang} />
-            <Hero4 lang={lang} />
+            {/* <Hero4 lang={lang} /> */}
           </div>
         </div>
       </div>
