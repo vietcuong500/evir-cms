@@ -1,9 +1,8 @@
 version: "3.7"
 services:
   cms:
-    buid:
-    context: .
+    build:
+      context: .
     container_name: cms
     ports:
-      - 8000:8000 
-      # 3000:80 map 80 in container => 3000 in local
+      - 3005:3005 
