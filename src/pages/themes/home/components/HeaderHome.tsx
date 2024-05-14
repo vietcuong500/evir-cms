@@ -1,12 +1,12 @@
 import { Drawer, Input, Popover } from "antd";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useWatch } from "react-hook-form";
 import { RiPhoneFill } from "react-icons/ri";
 import { useToggle } from "react-use";
 
 function HeaderHome(props: any) {
-  const { control, watch } = useFormContext();
+  const { control, watch, } = useFormContext();
   const [open, setOpen] = useToggle(false);
-  const {lang} = props;
+  const { lang } = props;
   const suffix = `${lang}.header`;
   return (
     <div>
@@ -45,9 +45,12 @@ function HeaderHome(props: any) {
           />
           <Controller
             control={control}
-            name={`${suffix}.desc1"`}            render={({ field: { onChange, value } }) => (
-              <Input value={value} onChange={onChange} />
-            )}
+            name={`${suffix}.desc1`}
+            render={({ field: { onChange, value } }) => {
+              return (
+                <Input value={value} onChange={onChange} />
+              )
+            }}
           />
           <Controller
             control={control}
@@ -58,7 +61,8 @@ function HeaderHome(props: any) {
           />
           <Controller
             control={control}
-            name={`${suffix}.desc2"`}            render={({ field: { onChange, value } }) => (
+            name={`${suffix}.desc2`}
+            render={({ field: { onChange, value } }) => (
               <Input value={value} onChange={onChange} />
             )}
           />
