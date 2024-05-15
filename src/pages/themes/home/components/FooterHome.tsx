@@ -10,7 +10,7 @@ import {
 } from "react-hook-form";
 import { Input, Popover } from "antd";
 
-const FooterMain = () => {
+const FooterMain = ({ name }: { name: string }) => {
   const { control, watch } = useFormContext();
 
   return (
@@ -19,28 +19,28 @@ const FooterMain = () => {
         <div className="w-96 px-3 py-3 flex flex-col gap-2">
           <Controller
             control={control}
-            name="footer.desc"
+            name={`${name}.desc`}
             render={({ field: { onChange, value } }) => (
               <Input value={value} onChange={onChange} />
             )}
           />
           <Controller
             control={control}
-            name="footer.address"
+            name={`${name}.address`}
             render={({ field: { onChange, value } }) => (
               <Input value={value} onChange={onChange} />
             )}
           />
           <Controller
             control={control}
-            name="footer.phone"
+            name={`${name}.phone`}
             render={({ field: { onChange, value } }) => (
               <Input value={value} onChange={onChange} />
             )}
           />
           <Controller
             control={control}
-            name="footer.fax"
+            name={`${name}.fax`}
             render={({ field: { onChange, value } }) => (
               <Input value={value} onChange={onChange} />
             )}
@@ -51,19 +51,19 @@ const FooterMain = () => {
       <div className="w-full md:w-1/2 ring-1 ring-transparent hover:ring-lime-500">
         <h4 className="text-3xl font-semibold text-lime-700">Eviromet.</h4>
         <p className="text-neutral-700 mt-2 mb-4 text-sm">
-          {watch("footer.desc")}
+          {watch(`${name}.desc`)}
         </p>
         <ul className="flex flex-col gap-2">
           <li className="flex items-center gap-2 text-sm text-neutral-800">
             <CiLocationArrow1 />
-            {watch("footer.address")}
+            {watch(`${name}.address`)}
           </li>
           <li className="flex items-center gap-2 text-sm text-neutral-800">
             <FiSmartphone />
-            {watch("footer.phone")}
+            {watch(`${name}.phone`)}
           </li>
           <li className="flex items-center gap-2 text-sm text-neutral-800">
-            <FiMail /> {watch("footer.fax")}
+            <FiMail /> {watch(`${name}.fax`)}
           </li>
         </ul>
       </div>
@@ -143,7 +143,7 @@ function FooterHome(props: any) {
     <div className="py-8">
       <div className="container mx-auto flex flex-col xl:flex-row gap-6">
         <div className="w-full xl:w-1/2 flex flex-col md:flex-row  gap-6">
-          <FooterMain />
+          <FooterMain name={`${suffix}`} />
           <div className="w-full md:w-1/2">
             <p className="uppercase font-medium text-neutral-950">
               Bài viết gần đây
